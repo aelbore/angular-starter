@@ -1,0 +1,13 @@
+{
+  "name": "@lithium/tsconfig",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "keywords": [],
+  "author": "Arjay Elbore <aelbore.sg@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^5.6.3",
+    "tslib": "^2.8.0"
+  }
+}

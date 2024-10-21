@@ -1,0 +1,29 @@
+{
+  "name": "@lithium/storybook",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 8080 -c ./src --no-open"
+  },
+  "keywords": [
+    "storybook",
+    "web-components",
+    "custom-elements"
+  ],
+  "author": "Arjay Elbore <aelbore.sg@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@storybook/addon-essentials": "^8.3.6",
+    "@storybook/addon-interactions": "^8.3.6",
+    "@storybook/addon-links": "^8.3.6",
+    "@storybook/addon-a11y": "^8.3.6",
+    "@storybook/blocks": "^8.3.6",
+    "@storybook/builder-vite": "^8.3.6",
+    "@storybook/test": "^8.3.6",
+    "@storybook/web-components": "8.3.6",
+    "@storybook/web-components-vite": "8.3.6",
+    "storybook": "^8.3.6"
+  }
+}

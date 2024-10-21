@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@lithium/theme": [ 
+        "../theme/styles.scss" 
+      ],
+      "@lithium/elements/*": [ 
+        "../elements/src/*" 
+      ],
+      "@lithium/tools": [ 
+        "../tools/src/tools.ts" 
+      ],
+      "@lithium/storybook/utils": [ 
+        "../storybook/stories/utils.ts" 
+      ],
+      "@app/*": [ 
+        "../../src/app/*" 
+      ]
+    }
+  }
+}

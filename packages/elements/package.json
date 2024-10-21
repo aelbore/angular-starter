@@ -1,0 +1,16 @@
+{
+  "name": "@lithium/elements",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "qoi-cli build --cleanOutDir --minify literals"
+  },
+  "keywords": [],
+  "author": "Arjay Elbore <aelbore.sg@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "lit": "^3.2.1"
+  }
+}

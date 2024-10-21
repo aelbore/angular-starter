@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "@lithium/tsconfig/tsconfig.json",
+    "@lithium/tsconfig/tsconfig.paths.json"
+  ],
+  "include": [ 
+    "./**/*.ts"
+  ]
+}

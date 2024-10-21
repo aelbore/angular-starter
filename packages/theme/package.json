@@ -1,0 +1,9 @@
+{
+  "name": "@lithium/theme",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "keywords": [],
+  "author": "Arjay Elbore <aelbore.sg@gmail.com>",
+  "license": "MIT"
+}

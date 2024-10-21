@@ -1,0 +1,18 @@
+:root {
+  --border-radius: 8px;
+  --text-color: #000;
+
+  --primary-white: #fff;
+
+  --button-border-radius: var(--border-radius);
+  --button-text-color: var(--primary-white);
+  --button-bg-color: #1991F0;
+  --button-border: none;
+  --button-border-color: transparent;
+  --button-font-weight: 400;
+  --button-font-size: 16px;
+  --button-width: 100%;
+  --button-height: 40px;
+  --button-cursor: pointer;
+  --button-text-align: center;
+}
