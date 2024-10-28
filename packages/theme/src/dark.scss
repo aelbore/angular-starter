@@ -1,0 +1,29 @@
+@mixin dark-theme {
+  --theme-background: #232326;
+  --secondary-yellow: #f2a900;
+
+  --profile-card-name-color: var(--primary-white);
+  --profile-card-title-color: var(--primary-white);
+  --profile-card-email-color: var(--secondary-yellow);
+  --profile-card-phone-title-color: var(--secondary-yellow);
+  --profile-card-phone-color: var(--primary-white);
+  --profile-card-line-break-color: #2e2e31;
+
+  --checkbox-ripple-color: var(--secondary-yellow);
+  --checkbox-border-color: var(--secondary-yellow);
+  --checkbox-bg-color: var(--secondary-yellow);
+  --checkbox-check-color: #000;
+  --checkbox-text-color: var(--primary-white);
+}
+
+[theme=dark] {
+  @include dark-theme();
+
+  body {
+    background: var(--theme-background);
+  }
+}
+
+body[class=dark] {
+  @include dark-theme();
+}

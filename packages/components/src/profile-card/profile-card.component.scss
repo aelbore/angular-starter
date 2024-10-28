@@ -1,0 +1,97 @@
+:host {
+  font-family: va(--font-family);
+
+  .profile-card {
+    --card-radius: 0;
+    --card-grid-rows: auto;
+    --card-min-height: auto;
+    --card-height: auto;
+    --card-border: 0;
+    --card-width: var(--profile-card-width, fit-content);
+    --card-bg-color: transparent;
+    --checkbox-margin: 3px 0px 3px 1px;
+
+    li-content {
+      --content-padding: 0;
+      --content-grid-row: auto;
+
+      > section, > section > section {
+        display: grid;
+        grid-template-columns: auto 1fr;
+      }
+
+      > section {        
+        column-gap: 10px;
+        align-items: center;
+
+        > section {
+          column-gap: 20px;
+          padding: 18.5px 0;
+          border-bottom: 1px solid var(--profile-card-line-break-color);
+        }
+      }
+    }
+
+    &--info {
+      display: grid;
+
+      label {
+        &[for=name] {
+          font-size: 16px;
+          color: var(--profile-card-name-color);
+        }
+
+        &[for=title] {
+          font-size: 14px;
+          color: var(--profile-card-title-color);
+        }
+
+        &[for=email] {
+          font-size: 13px;
+          padding-bottom: 6px;
+
+          a {
+            color: var(--profile-card-email-color);
+            &:link, &:visited, &:hover, &:active {
+              text-decoration: none;
+            }
+          }
+        }
+      }
+
+      > section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        label {
+          display: grid;
+          grid-template-rows: 1fr 1fr;
+          row-gap: 5px;
+          font-size: 13px;
+
+          span {
+            &:first-child {
+              color: var(--profile-card-phone-title-color);
+            }
+
+            &:last-child {
+              color: var(--profile-card-phone-color)
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+:host([reverse]) {
+  .profile-card {
+    li-content{
+      > section, > section > section {
+        display: flex;
+        flex-direction: row-reverse;
+        width: fit-content;
+      }
+    }
+  }
+}

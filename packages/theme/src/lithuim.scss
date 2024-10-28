@@ -1,8 +1,10 @@
 :root {
+  --font-family: 'Calibri';
   --border-radius: 8px;
   --text-color: #000;
 
   --primary-white: #fff;
+  --primary-bright-blue: #0073cf;
 
   --button-border-radius: var(--border-radius);
   --button-text-color: var(--primary-white);
@@ -15,4 +17,32 @@
   --button-height: 40px;
   --button-cursor: pointer;
   --button-text-align: center;
+
+  --card-display: grid;
+  --card-border-radius: var(--border-radius);
+  --card-bg-color: var(--primary-white);
+  --card-border-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --card-width: 100%;
+  --card-min-height: 50vh;
+  --card-height: 50vh;
+  --card-padding: 0;
+  --card-display: grid;
+  --card-grid-rows: auto 1fr auto;
+
+  --header-display: grid;
+  --header-height: 48px;
+  --header-border-style: none none solid none;
+
+  --content-padding: 10px;
+  --content-display: grid;
+  --content-section-display: grid;
+
+  --footer-display: grid;
+  --footer-height: 48px;
+  --footer-border-style: solid none none none;
+
+  --avatar-border-color: var(--primary-bright-blue);
+
+  --checkbox-border-line-width: 1px;
 }
+

@@ -1,5 +1,5 @@
-import type { ButtonType } from '../types'
-import { CustomElement, html } from '../core'
+import type { ButtonType } from '@lithium/elements/types'
+import { CustomElement, html } from '@lithium/elements/core'
 
 import './button.scss'
 
@@ -7,15 +7,8 @@ export class ButtonElement extends CustomElement {
   #disabled!: boolean
   #type!: ButtonType
 
-  constructor() {
-    super()
-
-    this.disabled = false
-    this.type = 'button'
-  }
-
   get #button() {
-    return this.root.querySelector<HTMLButtonElement>('button')
+    return this.queryRoot<HTMLButtonElement>('button')
   }
 
   #onSubmit(element: HTMLElement) {
@@ -33,7 +26,7 @@ export class ButtonElement extends CustomElement {
   }
 
   get disabled() {
-    return this.#disabled
+    return this.#disabled ?? false
   }
 
   set disabled(value: boolean) {
@@ -43,7 +36,7 @@ export class ButtonElement extends CustomElement {
   }
 
   get type() {
-    return this.#type
+    return this.#type ?? 'button'
   }
 
   set type(value: ButtonType) {
@@ -55,7 +48,7 @@ export class ButtonElement extends CustomElement {
     this.createEventListener('click', this.#onButtonClickEvent)
   }
 
-  override render(): string {
+  override render() {
     return html `
       <button part="button">
         <span part="span">

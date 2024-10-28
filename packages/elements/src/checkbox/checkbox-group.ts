@@ -1,11 +1,15 @@
-import type { CoreEvent, Checkbox } from '../types'
+import type { CoreEvent } from '@lithium/elements/types'
 
-import { CustomElement, html } from '../core'
+import { CustomElement, html } from '@lithium/elements/core'
+import { Checkbox } from './checkbox'
 
 import './checkbox-group.scss'
 
 export class CheckboxGroup extends CustomElement {
+  static elementName = 'li-checkbox-group'
+
   #selected: unknown[] = []
+  #events: Map<unknown, unknown> = new Map()
 
   #selectItem(value: unknown) {
     return this.selected?.findIndex(s => {
@@ -13,6 +17,17 @@ export class CheckboxGroup extends CustomElement {
         ? JSON.stringify(s) === JSON.stringify(value || {})
         : s?.toString() === value?.toString())
     })
+  }
+
+  #addChangedEvent(slot: Element) {
+    const attachTo = slot as Checkbox
+    if (
+      !this.#events.has(attachTo.value)
+      && attachTo.nodeName.toLowerCase() === Checkbox.elementName
+    ) {
+      this.createEventListener('change', this.#onItemChanged, { attachTo })
+      this.#events.set(attachTo.value, attachTo.value)
+    }
   }
 
   #updateChecked(value: unknown, checked: boolean, fnUnchecked: (index?: number) => void) {
@@ -42,6 +57,7 @@ export class CheckboxGroup extends CustomElement {
   #slotChanged() {
     this.slots?.assignedElements().forEach(slot => {
       const c = slot as Checkbox
+      this.#addChangedEvent(c)
       this.#updateChecked(c.value, c.checked!, () => c.checked = true)
     })
   }
@@ -61,10 +77,14 @@ export class CheckboxGroup extends CustomElement {
 
   connectedCallback() {
     this.slots?.assignedElements().forEach(slot => {
-      const attachTo = slot as Checkbox
-      this.createEventListener('change', this.#onItemChanged, { attachTo })
+      this.#addChangedEvent(slot)
     })
     this.createEventListener('slotchange', this.#slotChanged, { attachTo: this.slots })
+  }
+
+  override disconnectedCallback() {
+    super.disconnectedCallback()
+    this.#events = new Map()
   }
 
   override render() {
@@ -76,4 +96,4 @@ export class CheckboxGroup extends CustomElement {
   }
 }
 
-customElements.define('li-checkbox-group', CheckboxGroup)
+customElements.define(CheckboxGroup.elementName, CheckboxGroup)

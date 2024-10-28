@@ -66,7 +66,7 @@ describe('Checkbox', () => {
     expect(checkbox.getAttribute('type')).toStrictEqual('checkbox')
     expect(checkbox.hasAttribute('disabled')).toBeFalsy()
     expect(checkbox.hasAttribute('checked')).toBeFalsy()
-    expect(checkbox.getAttribute('value')).toBeNull()
+    expect(checkbox.getAttribute('value')).toBeUndefined()
   })
 
   it('should set props and child props on attribute changed', async () => { 

@@ -1,0 +1,10 @@
+:host {
+  main {
+    display: var(--layout-display, grid);
+    row-gap: var(--layour-row-gap);        
+
+    ::-webkit-scrollbar {
+      display: var(--layout-scrollbar, none);
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import '@lithium/theme'
 
-import type { Preview } from '@storybook/web-components'
+import type { Preview } from '@storybook/angular'
 
 export default {
   parameters: {
@@ -15,4 +15,4 @@ export default {
       }
     }
   }
-} as Preview
+} satisfies Preview

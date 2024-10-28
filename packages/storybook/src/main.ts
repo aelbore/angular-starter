@@ -1,10 +1,10 @@
-import type { StorybookConfig } from '@storybook/web-components-vite'
+import type { StorybookConfig } from '@storybook/angular'
 import type { StorybookConfigVite } from '@storybook/builder-vite'
 
+import { join } from 'node:path'
+
 export default {
-  stories: [ 
-    '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)' 
-  ],
+  stories: [ '../**/*.stories.@(js|jsx|mjs|ts|tsx)' ],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -12,9 +12,15 @@ export default {
     '@storybook/addon-a11y'
   ],
   framework: {
-    name: '@storybook/web-components-vite'
+    name: '@storybook/angular',
+    options: {}
   },
-  docs: {
-    autodocs: 'tag'
+  core: {
+    builder: {
+      name: '@storybook/builder-vite',
+      options: {
+        viteConfigPath: join(__dirname, '../vite.config.ts')
+      }
+    }
   }
 } as StorybookConfig & StorybookConfigVite

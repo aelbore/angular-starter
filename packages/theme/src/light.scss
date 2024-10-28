@@ -1,0 +1,23 @@
+@mixin light-theme {
+  --theme-background: var(--primary-white);
+
+  --checkbox-ripple-color: var(--primary-bright-blue);
+  --checkbox-border-color: var(--primary-bright-blue);
+  --checkbox-bg-color: var(--primary-bright-blue);
+  --checkbox-check-color: var(--primary-white); 
+  --checkbox-text-color: #000;
+
+  --profile-card-line-break-color: #ededed;
+}
+
+[theme=light] {
+  @include light-theme();
+
+  body {
+    background: var(--theme-background);
+  }
+}
+
+body[class=light] {
+  @include light-theme();
+}

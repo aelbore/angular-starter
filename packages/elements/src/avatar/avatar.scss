@@ -1,0 +1,16 @@
+:host {
+  div {
+    border: 2px solid var(--avatar-border-color);
+    padding: 3px;
+  }
+
+  div, img {
+    width: var(--avatar-width, 80px);
+    height: var(--avatar-height, 80px);
+    border-radius: var(--avatar-radius, 100%);
+  }
+
+  img {
+    object-fit: cover;
+  }
+}

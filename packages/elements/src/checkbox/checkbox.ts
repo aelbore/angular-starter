@@ -5,17 +5,12 @@ import { CustomElement, html } from '../core'
 import './checkbox.scss'
 
 export class Checkbox extends CustomElement {
+  static elementName = 'li-checkbox'
+
   #checked!: boolean
   #value!: unknown
   #disabled!: boolean
   #type!: CheckboxType
-
-  constructor() {
-    super()
-    this.checked = false
-    this.disabled = false
-    this.type = 'checkbox'
-  }
 
   get #input() {
     return this.root.querySelector<HTMLInputElement>('input')
@@ -35,7 +30,7 @@ export class Checkbox extends CustomElement {
   }
 
   get checked() {
-    return this.#checked
+    return this.#checked ?? false
   }
 
   set checked(value: boolean) {
@@ -45,7 +40,7 @@ export class Checkbox extends CustomElement {
   }
 
   get disabled() {
-    return this.#disabled
+    return this.#disabled ?? false
   }
 
   set disabled(value: boolean) {
@@ -55,7 +50,7 @@ export class Checkbox extends CustomElement {
   }
 
   get type() {
-    return this.#type
+    return this.#type ?? 'checkbox'
   }
 
   set type(value: CheckboxType) {
@@ -80,7 +75,7 @@ export class Checkbox extends CustomElement {
 
   override render() {
     return html `
-      <label part="label">
+      <label part="label" class="li-checkbox">
         <input part="input" aria-label="toggle" type="checkbox" />
         <span part="span">        
           <slot></slot>
@@ -90,4 +85,4 @@ export class Checkbox extends CustomElement {
   }
 }
 
-customElements.define('li-checkbox', Checkbox)
+customElements.define(Checkbox.elementName, Checkbox)

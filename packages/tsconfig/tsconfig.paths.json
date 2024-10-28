@@ -4,6 +4,9 @@
       "@lithium/theme": [ 
         "../theme/styles.scss" 
       ],
+      "@lithium/components/*": [ 
+        "../components/src/*" 
+      ],
       "@lithium/elements/*": [ 
         "../elements/src/*" 
       ],

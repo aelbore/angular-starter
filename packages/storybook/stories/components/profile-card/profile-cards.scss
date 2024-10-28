@@ -1,0 +1,13 @@
+:host {
+  .profile-cards {
+    margin: 10px;
+
+    profile-card {
+      --profile-card-width: 50%;
+    }
+
+    li-checkbox-group {
+      --checkbox-group-width: 50%;
+    }
+  }
+}

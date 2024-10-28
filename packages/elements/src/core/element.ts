@@ -103,9 +103,15 @@ export abstract class CustomElement extends HTMLElement {
     return this.attachShadow({ mode: 'open' }) as ShadowRoot | HTMLElement
   }
 
-  protected setBooleanAttr(name: string, value: boolean, el: HTMLElement = this) {
+  protected setBooleanAttr(name: string, value: boolean, el?: HTMLElement) {
+    el = el ?? this
     if (value) el.setAttribute(name, '')
     if (!value) el.removeAttribute(name)
+  }
+
+  override getAttribute(qualifiedName: string) {
+    // @ts-expect-error string cannot use as index
+    return super.getAttribute(qualifiedName) ?? this[qualifiedName]
   }
 
   protected createEventListener(type: string, listener: (event: Event) => void, opitions?: AddEventListenerOptions) {
@@ -115,6 +121,10 @@ export abstract class CustomElement extends HTMLElement {
       attachTo: attachTo ?? this,
       bindTo: bindTo ?? this
     })
+  }
+
+  protected queryRoot<T>(selector: string) {
+    return this.root.querySelector(selector) as T
   }
 
   attributeChangedCallback(n: string, _: string, v: string) {

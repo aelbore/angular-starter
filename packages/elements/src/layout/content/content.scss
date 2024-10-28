@@ -1,0 +1,44 @@
+:host {
+  font-family: var(--font-family);
+
+  section {
+    display: var(--content-display);
+    min-height: var(--content-min-height);
+    height: var(--content-height);
+    grid-template-rows: var(--content-grid-rows);
+    grid-template-columns: var(--content-grid-columns);
+    background-color: var(--content-bg-color);
+    padding: var(--content-padding, 0);
+    
+    > ::slotted(header),
+    > ::slotted(footer) {
+      display: grid;
+    }
+
+    > ::slotted(header) {
+      height: var(--content-header-height);
+    }
+    
+    > ::slotted(section) {
+      display: var(--content-section-display);
+      padding: var(--content-section-padding);
+    }
+
+    > ::slotted(footer) {
+      height: var(--content-footer-height);
+    }
+  }
+}
+
+:host([scrollable]) {
+  overflow-y: auto;
+}
+
+:host([no-scrollbar]) {
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
