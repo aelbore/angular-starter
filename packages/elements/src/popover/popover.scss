@@ -1,0 +1,115 @@
+:host {
+  display: contents;
+}
+
+.content {
+  position: fixed;
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: block;
+  color: #2d2d2d;
+  min-width: 200px;
+  max-width: 300px;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.content.show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  z-index: 1;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.close-button svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.content-inner {
+  padding: 16px;
+  padding-right: 32px;
+}
+
+.arrow {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: -1;
+  transition: transform 0.2s ease;
+}
+
+.content[data-placement="top"] .arrow {
+  border-top: none;
+  border-left: none;
+}
+
+.content[data-placement="bottom"] .arrow {
+  border-bottom: none;
+  border-right: none;
+}
+
+.content[data-placement="left"] .arrow {
+  border-left: none;
+  border-bottom: none;
+}
+
+.content[data-placement="right"] .arrow {
+  border-right: none;
+  border-top: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .content {
+    background: #2d2d2d;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+  }
+  
+  .arrow {
+    background: #2d2d2d;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    max-width: calc(100vw - 32px);
+    margin: 0 16px;
+  }
+}

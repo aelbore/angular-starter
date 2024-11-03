@@ -8,6 +8,6 @@
   "license": "MIT",
   "dependencies": {
     "typescript": "^5.6.3",
-    "tslib": "^2.8.0"
+    "tslib": "^2.8.1"
   }
 }
