@@ -51,11 +51,16 @@
 .close-button svg {
   width: 16px;
   height: 16px;
-  fill: currentColor;
+  fill: var(--popover-close-button-color);
+
+  path {
+    stroke-width: var(--popover-close-button-stroke-width);
+    stroke: var(--popover-close-button-stroke);
+  }
 }
 
 .content-inner {
-  padding: 16px;
+  padding: var(--popover-content-inner-padding);
   padding-right: 32px;
 }
 

@@ -17,6 +17,7 @@ export class PopoverElement extends CustomElement {
   #for!: string
   #show!: boolean
   #wasVisible!: boolean
+  #mutationObserver!: MutationObserver
 
   state: PopoverState
   events: EventManager
@@ -29,6 +30,7 @@ export class PopoverElement extends CustomElement {
     this.events = new EventManager(this)
     this.manager = new PopoverManager()
     this.viewportObserver = new ViewportObserver()
+    this.#mutationObserver = new MutationObserver(this._checkTriggerExists.bind(this))
     this.#wasVisible = this.show
   }
 
@@ -80,6 +82,11 @@ export class PopoverElement extends CustomElement {
   }
 
   updatePosition() {
+    if (!this.triggerElement) {
+      this.close()
+      return
+    }
+
     const content = this.#content, arrow = this.#arrow
     if (!content || !arrow || !this.triggerElement) return
 
@@ -123,13 +130,18 @@ export class PopoverElement extends CustomElement {
     if (this.triggerElement) {
       this.viewportObserver.unobserve(this.triggerElement)
     }
-
+    this.#mutationObserver.disconnect()
     if (this.#content) {
       this.#content.removeEventListener('transitionend', this._handleTransitionEnd)
     }
   }
 
   showContent() {   
+    if (!this.triggerElement) {
+      this.close()
+      return
+    }
+
     if (!this.#content) return
     requestAnimationFrame(() => {
       this.#content?.classList.add('show')
@@ -162,6 +174,12 @@ export class PopoverElement extends CustomElement {
     }
   }
 
+  _checkTriggerExists() {
+    if (!this.triggerElement) {
+      this.close()
+    }
+  }
+
   hideContent() {
     const content = this.#content
     if (!content) return
@@ -182,6 +200,7 @@ export class PopoverElement extends CustomElement {
         return
       }
       if (!this.triggerElement?.isConnected) {
+        this.close()
         return
       }
       this.#wasVisible = true
@@ -209,6 +228,11 @@ export class PopoverElement extends CustomElement {
         this.handleShowAttribute()
       })
     }
+
+    this.#mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    })
   }
 
   override disconnectedCallback() {
@@ -227,6 +251,8 @@ export class PopoverElement extends CustomElement {
       const newTrigger = document.getElementById(newValue)
       if (newTrigger) {
         this.viewportObserver.observe(newTrigger, this.handleTriggerVisibility.bind(this))
+      } else {
+        this.close()
       }
     }
 

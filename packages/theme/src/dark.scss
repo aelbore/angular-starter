@@ -16,8 +16,55 @@
   --checkbox-text-color: var(--primary-white);
 }
 
+@mixin popover-content-dark {
+  --popover-close-button-color: var(--primary-white);
+  --popover-close-button-stroke: var(--primary-white);
+  --popover-close-button-stroke-width: 0.5;
+
+  .popover-content {
+    font-family: var(--font-family);
+    padding: 16px;
+    display: grid;
+    row-gap: 25px;
+
+    .popover-body {
+      display: grid;
+      row-gap: 10px;
+
+      h3 {
+        margin: 0;
+        font-size: 1.1em;
+        color: var(--primary-white);
+      }
+  
+      p {
+        margin: 0;
+        font-size: 0.9em;
+        color: var(--primary-white);
+        line-height: 20px;
+      }  
+    }
+
+    .popover-actions {
+      display: flex;
+      gap: 8px;
+
+      .action-button {
+        padding: 6px 12px;
+        border: 1px solid #dee2e6;
+        background: white;
+        border-radius: 20px;
+        font-size: 0.9em;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      } 
+    }
+  }
+}
+
 [theme=dark] {
   @include dark-theme();
+  @include popover-content-dark();
 
   body {
     background: var(--theme-background);
@@ -26,4 +73,5 @@
 
 body[class=dark] {
   @include dark-theme();
+  @include popover-content-dark();
 }

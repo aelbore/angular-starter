@@ -1,5 +1,6 @@
 import '@lithium/elements/popover'
 
+import type { PopoverOptions } from '@lithium/elements/types'
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 
 @Component({
@@ -25,25 +26,43 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
   styleUrl: './popover.scss'
 })
 export class PopoverComponent {
+  popover!: ReturnType<typeof window.createPopover>
 
   constructor() {
     this.#createBottomPopover()
   }
 
+  #createPopover(options: PopoverOptions) {
+    const popover = window.createPopover(options)
+    const gotIdBtn = popover?.querySelector('.popover-actions .action-button')
+
+    const close = popover?.close.bind(popover)
+
+    popover?.addEventListener('click', () => close?.())
+    gotIdBtn?.addEventListener('click', () => close?.())
+
+    return popover
+  }
+
   #createBottomPopover() {
-    window.createPopover({
+    this.#createPopover({
       target: 'bottom-trigger',
       placement: 'bottom',
       content: `
         <div class="popover-content">
-          <h3>Bottom Placement</h3>
-          <p>This popover appears below the trigger with smart positioning.</p>
+          <div class="popover-body">
+            <h3>Features has moved</h3>
+            <p>
+              We made a few updates. The look may different, but your
+              familiar features are still here
+            </p>
+          </div>
           <div class="popover-actions">
-            <button class="action-button">Action 1</button>
-            <button class="action-button">Action 2</button>
+            <button class="action-button">Got it</button>
           </div>
         </div>      
-      `})
+      `
+    })
   }
 
   openBottomPopover() {

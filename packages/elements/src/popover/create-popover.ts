@@ -23,12 +23,14 @@ export const createPopover = (options: PopoverOptions) => {
   requestAnimationFrame(() => {
     popover.show = true
   })
+
+  return popover
 }
 
 window.createPopover = createPopover
 
 declare global {
   interface Window {
-    createPopover(options: PopoverOptions): void
+    createPopover(options: PopoverOptions): PopoverElement | undefined
   }
 }
