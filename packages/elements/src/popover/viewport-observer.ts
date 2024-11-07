@@ -1,9 +1,5 @@
 export class ViewportObserver {
-  observers!: Map<HTMLElement, IntersectionObserver>
-
-  constructor() {
-    this.observers = new Map()
-  }
+  observers: Map<HTMLElement, IntersectionObserver> = new Map()
 
   observe(
     element: HTMLElement, 

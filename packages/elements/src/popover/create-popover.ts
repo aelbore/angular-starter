@@ -4,7 +4,7 @@ import { PopoverElement, PopoverOptions } from '@lithium/elements/types'
 export const createPopover = (options: PopoverOptions) => {
   if (!options.target) return
 
-  const { target, placement, content } = options
+  const { target, placement, content, mode, arrow } = options
 
   const existingPopover = document.querySelector(`pop-over[for="${target}"]`)
   if (existingPopover) {
@@ -14,6 +14,8 @@ export const createPopover = (options: PopoverOptions) => {
   const popover = document.createElement('pop-over') as PopoverElement
   popover.for = target
   popover.placement = placement
+  popover.mode = mode
+  popover.arrow = arrow
 
   const sanitizedContent = sanitizeHTML(content!)
   popover.appendChild(sanitizedContent)

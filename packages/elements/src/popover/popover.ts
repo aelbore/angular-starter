@@ -1,9 +1,9 @@
-import type { Position, ViewPort } from '@lithium/elements/types'
+import type { ArrowPosition, CalculatePositionOptions, PopoverMode, Position, ViewPort } from '@lithium/elements/types'
 
 import { CustomElement, html } from '@lithium/elements/core'
 
 import { PopoverState } from './state'
-import { calculatePosition } from './position'
+import { $calculatePosition, calculateStaticPosition } from './position'
 import { EventManager } from './event-manager'
 import { PopoverManager } from './popover-manager'
 import { ViewportObserver } from './viewport-observer'
@@ -16,6 +16,9 @@ export class PopoverElement extends CustomElement {
   #placement!: Position
   #for!: string
   #show!: boolean
+  #mode!: PopoverMode
+  #arrowPosition!: ArrowPosition
+
   #wasVisible!: boolean
   #mutationObserver!: MutationObserver
 
@@ -73,6 +76,26 @@ export class PopoverElement extends CustomElement {
     this.setBooleanAttr('show', this.show)
   }
 
+  get mode() {
+    return this.#mode ?? 'auto'
+  }
+
+  set mode(value: PopoverMode) {
+    this.#mode = value
+    this.setAttribute('mode', this.mode)
+    this.#content?.setAttribute('data-mode', this.mode)
+  }
+
+  get arrow() {
+    return this.#arrowPosition ?? 'center'
+  }
+
+  set arrow(value: ArrowPosition) {
+    this.#arrowPosition = value
+    this.setAttribute('arrow', this.#arrowPosition)
+    this.#content?.setAttribute('data-arrow', this.#arrowPosition)
+  }
+
   get triggerElement() {
     return document.getElementById(this.for)!
   }
@@ -97,14 +120,20 @@ export class PopoverElement extends CustomElement {
       height: window.innerHeight
     }
 
-    const { placement, coords, arrowCoords } = calculatePosition(
+    const options = {
       triggerRect,
-      contentRect!,
+      contentRect,
       viewport,
-      this.placement
-    )
+      preferredPlacement: this.placement,
+      arrowPlacement: this.arrow
+    } as CalculatePositionOptions
+
+    const { placement, coords, arrowCoords } = this.mode === 'static' 
+      ? calculateStaticPosition(options)
+      : $calculatePosition(options)
 
     this.placement = placement!
+
     Object.assign(content?.style ?? {}, {
       top: `${coords.top}px`,
       left: `${coords.left}px`
@@ -154,7 +183,7 @@ export class PopoverElement extends CustomElement {
     if (!isVisible && this.show) {
       this.#wasVisible = true
       this.hideContent()
-    } else if (isVisible && this.#wasVisible) {
+    } else if (isVisible && (this.#wasVisible || this.mode === 'static')) {
       this.showContent()
     }
   }
@@ -260,6 +289,10 @@ export class PopoverElement extends CustomElement {
       requestAnimationFrame(() => {
         this.handleShowAttribute()
       })
+    }
+
+    if (name === 'placement' || name === 'mode' || name === 'arrow') {
+      this.updatePosition()
     }
 
     super.attributeChangedCallback(name, oldValue, newValue)

@@ -48,6 +48,8 @@ export class PopoverComponent {
     this.#createPopover({
       target: 'bottom-trigger',
       placement: 'bottom',
+      arrow: 'left',
+      mode: 'static',
       content: `
         <div class="popover-content">
           <div class="popover-body">

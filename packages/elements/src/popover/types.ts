@@ -26,12 +26,21 @@ export type ViewPort = Record<keyof { width: number, height: number  }, number>
 
 export type PopoverOptions = {
   target: string
-  placement?: Position
   content?: string
+  placement?: Position
+  arrow?: ArrowPosition
+  mode?: PopoverMode
 }
 
-export interface PopoverElement extends HTMLElement, ShadowRootElement {
-  placement?: Position
+export type PopoverMode = 'auto' | 'static'
+
+export type ArrowPosition = 'top' | 'left' | 'right' | 'bottom' | 'center'
+
+export interface PopoverElement extends 
+  HTMLElement, 
+  ShadowRootElement,
+  Omit<PopoverOptions, 'target' | 'content'> 
+{
   show?: boolean
   for?: string
   triggerElement?: HTMLElement
@@ -39,4 +48,12 @@ export interface PopoverElement extends HTMLElement, ShadowRootElement {
   updatePosition(): void
   closeBtn?: HTMLElement
   close(): void
+}
+
+export type CalculatePositionOptions = {
+  triggerRect?: DOMRect, 
+  contentRect?: DOMRect, 
+  viewport?: ViewPort, 
+  preferredPlacement?: Position,
+  arrowPlacement?: ArrowPosition
 }
