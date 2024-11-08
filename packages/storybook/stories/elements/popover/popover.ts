@@ -28,7 +28,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 export class PopoverComponent {
   popover!: ReturnType<typeof window.createPopover>
 
-  constructor() {
+  ngAfterViewInit() {
     this.#createBottomPopover()
   }
 
@@ -49,7 +49,7 @@ export class PopoverComponent {
       target: 'bottom-trigger',
       placement: 'bottom',
       arrow: 'left',
-      mode: 'static',
+      mode: 'auto',
       content: `
         <div class="popover-content">
           <div class="popover-body">

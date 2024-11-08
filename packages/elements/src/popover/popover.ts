@@ -270,6 +270,8 @@ export class PopoverElement extends CustomElement {
   }
 
   override attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    super.attributeChangedCallback(name, oldValue, newValue)
+
     if (name === 'for') {
       if (oldValue) {
         const oldTrigger = document.getElementById(oldValue)
@@ -291,11 +293,9 @@ export class PopoverElement extends CustomElement {
       })
     }
 
-    if (name === 'placement' || name === 'mode' || name === 'arrow') {
-      this.updatePosition()
-    }
-
-    super.attributeChangedCallback(name, oldValue, newValue)
+    // if (name === 'placement' || name === 'mode' || name === 'arrow') {
+    //   this.updatePosition()
+    // }
   }
 
   override render() {
