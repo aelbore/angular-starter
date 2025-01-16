@@ -6,6 +6,10 @@ import { Alias } from 'vite'
 
 const SCOPE_NAME = '@lithium'
 
+export type VitestResolvePathsOptions = {
+  excludes?: string[]
+}
+
 const getTsConfigPath = (rootDir?: string) => {
   return join(rootDir ?? getRootDir(), 'tsconfig.json')
 }
@@ -30,7 +34,6 @@ export const hasRelativePath = () => {
 
 export const getParentDir = (...workspace: string[]) => {
   const rootDir = getRootDir()
-  console.info(hasRelativePath())
   return hasRelativePath() 
     ? rootDir
     : rootDir.replace(posix.join(...workspace), '')
@@ -85,15 +88,23 @@ export const viteAlias = (rootDir?: string) => {
 }
 
 export const vitestAlias = (rootDir?: string) => {
+  return vitestResolvePaths(rootDir ?? getRootDir())
+}
+
+export const vitestResolvePaths = (rootDir: string, options?: VitestResolvePathsOptions) => {
   const alias = viteAlias(rootDir)
   return Object.keys(alias).reduce((p, c) => {
     const $alias = {
       find: c.replaceAll('/*', ''),
       replacement: alias[c].replaceAll('*', '')
     } as Alias
+    if (options?.excludes?.some(a => a === $alias.find)) {
+      return p
+    }
     return [ ...p, $alias ]
   }, [] as Alias[])
 }
+
 
 export const elementPaths = (rootDir?: string) => {
   const alias = viteAlias(rootDir)

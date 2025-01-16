@@ -1,6 +1,6 @@
 import '@lithium/elements/popover'
 
-import type { PopoverOptions } from '@lithium/elements/types'
+import type { PopoverElement, PopoverOptions } from '@lithium/elements/types'
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 
 @Component({
@@ -26,14 +26,14 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
   styleUrl: './popover.scss'
 })
 export class PopoverComponent {
-  popover!: ReturnType<typeof window.createPopover>
+  popover!: PopoverElement | null | undefined
 
   ngAfterViewInit() {
     this.#createBottomPopover()
   }
 
   #createPopover(options: PopoverOptions) {
-    const popover = window.createPopover(options)
+    const popover = window.createPopover?.(options)
     const gotIdBtn = popover?.querySelector('.popover-actions .action-button')
 
     const close = popover?.close.bind(popover)
@@ -49,7 +49,7 @@ export class PopoverComponent {
       target: 'bottom-trigger',
       placement: 'bottom',
       arrow: 'left',
-      mode: 'auto',
+      mode: 'static',
       content: `
         <div class="popover-content">
           <div class="popover-body">

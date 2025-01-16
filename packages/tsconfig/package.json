@@ -7,7 +7,7 @@
   "author": "Arjay Elbore <aelbore.sg@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.3",
     "tslib": "^2.8.1"
   }
 }
