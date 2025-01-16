@@ -21,13 +21,13 @@ describe('Checkbox', () => {
   })
 
   it('should have element', async () => {
-    const element = await fixture(
+    const element = await fixture<CheckboxGroup>(
       html `
         <li-checkbox-group>
           <li-checkbox></li-checkbox>
         </li-checkbox-group>
       `
-    ) as CheckboxGroup
+    )
 
     expect(element).toBeTruthy()
     expect(element?.root).toBeTruthy()
