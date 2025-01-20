@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "qoi-cli build --cleanOutDir --minify literals"
+    "build": "qoi-cli build --cleanOutDir --minify"
   },
   "keywords": [],
   "author": "Arjay Elbore <aelbore.sg@gmail.com>",

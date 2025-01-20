@@ -6,6 +6,7 @@ import { extname } from 'node:path'
 import { createRequire } from 'node:module'
 
 import { createFilter, CreateFilter } from 'qoi-cli'
+import { toMinifyLiterals } from './minify-literals'
 
 export type Sass = {
   compile(
@@ -35,7 +36,13 @@ export type StyleClassOptions = {
   superClass?: string
 }
 
+export type LiteralsOptions = {
+  minify?: boolean
+  options?: import('@swc/html').Options
+}
+
 export type Options = {
+  literals?:LiteralsOptions
   element?: PluginOptions & StyleClassOptions
   css?: PluginOptions & TransformStyleOptions
 }
@@ -341,9 +348,16 @@ const AddInlineCssPlugin = () => {
     name: 'addInlineCss',
     enforce: 'pre',
     transform(code: string, id: string) {
-      const file = id.split('?')?.at(0)
-      if (filter?.tsFilter?.(file!)) {
+      const file = id.split('?')[0]
+      if (filter?.tsFilter?.(file)) {
         return transform(code, id, {
+          compilerOptions: {
+            paths: {
+              '@lithium/components/core': [
+                './src/core/index.ts'
+              ]
+            }
+          },
           transformers: [ AddInlineCss() ]
         })
       }
@@ -370,7 +384,12 @@ const TransformStylePlugin = (options?: Options) => {
 }
 
 export const InlineElementPlugin = <T>(options?: Options) => {
-  return [ BundleStylePlugin(), inlineElementPlugin(options), TransformStylePlugin(options) ] as T[]
+  return [ 
+    BundleStylePlugin(),  
+    inlineElementPlugin(options), 
+    TransformStylePlugin(options),
+    ...toMinifyLiterals(options?.literals?.minify)
+  ] as T[]
 }
 
 export const ViteInlineElementPlugin = <T>(options?: Options) => {

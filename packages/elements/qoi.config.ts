@@ -8,6 +8,9 @@ export default defineConfig({
   input: './src/index.ts',
   plugins: [
     InlineElementPlugin({
+      literals: {
+        minify: true
+      },
       element: {
         superClass: 'CustomElement'
       },
