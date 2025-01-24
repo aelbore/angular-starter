@@ -17,3 +17,14 @@ export const Angular = (filter?: import('qoi-cli').CreateFilter) => {
     })
   ] as import('rollup').Plugin[][]
 }
+
+export const Watcher = () => {
+  return {
+    name: 'watcher',
+    configureServer({ watcher, hot }) {
+      watcher.on('change', (path: string) => {
+        hot.send({ type: 'full-reload', path })
+      })
+    }
+  } as import('vite').Plugin
+}

@@ -4,7 +4,7 @@ import { swcPlugin } from 'qoi-cli'
 import { getParentDir, vitestAlias } from '../tools/src/utils'
 import { ViteInlineElementPlugin as VitePlugin } from '../tools/src/ts-plugin'
 
-import { Angular, createFilter } from './tools'
+import { Angular, createFilter, Watcher } from './tools'
 
 import baseConfig from '../tools/vite.config'
 
@@ -24,6 +24,7 @@ export default mergeConfig(
       alias: vitestAlias(getParentDir('packages/storybook'))
     },
     plugins: [
+      Watcher(),
       Angular(createFilter()),
       VitePlugin({
         element: {

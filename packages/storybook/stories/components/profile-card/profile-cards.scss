@@ -3,7 +3,11 @@
     margin: 10px;
 
     profile-card {
-      --profile-card-width: 50%;
+      &::part(card) {
+        --card-width: 50%;
+        --card-border: 1px solid;
+        --card-border-color: var(--primary-white);
+      }
     }
 
     li-checkbox-group {
