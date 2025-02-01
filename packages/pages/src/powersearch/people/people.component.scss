@@ -1,0 +1,70 @@
+:host {
+  display: var(--search-people-display, grid);
+
+  li-card {
+    --card-width: var(--search-people-width);
+    --card-min-height: auto;
+    --card-height: auto;
+    --card-border-radius: 10px;
+    --card-padding: 10px 30px;
+
+    li-header {
+      --header-border-style: none;
+
+      &::part(header) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      div:first-child {
+        color: var(--search-people-header-title);
+      }
+
+      .sort-header {
+        display: inline-flex;
+        column-gap: 5px;
+
+        &--divider {
+          align-self: center;
+          color: var(--search-people-sort-header-divider);
+        }
+      }
+    }
+
+    li-content {
+      --content-padding: 0;
+
+      section {
+        display: grid;
+        row-gap: 20px;
+        padding-top: 10px;
+
+        profile-card {
+          --profile-card-width: auto;
+          --profile-card-line-break-color: transparent;
+          --profile-card-role-diplay: grid;
+
+          &::part(card) {
+            --card-border: 1px solid;
+          }
+
+          &[reverse] {
+            &::part(ellipsis) {
+              display: inline-block;
+              white-space: nowrap;
+              width: 100%;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }  
+          }
+        }
+      }
+    }
+
+    li-footer {
+      --footer-border-style: none;
+    }
+  }
+}

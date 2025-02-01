@@ -4,11 +4,17 @@
       "@lithium/theme": [ 
         "../theme/styles.scss" 
       ],
+      "@lithium/theme/icons.scss": [ 
+        "../theme/src/icons.scss"
+      ],
       "@lithium/components/*": [ 
         "../components/src/*" 
       ],
       "@lithium/elements/*": [ 
         "../elements/src/*" 
+      ],
+      "@lithium/pages/*": [ 
+        "../pages/src/*" 
       ],
       "@lithium/tools": [ 
         "../tools/src/tools.ts" 

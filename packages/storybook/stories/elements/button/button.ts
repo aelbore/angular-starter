@@ -13,8 +13,8 @@ export type ButtonProps = {
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   template: `
     <li-button 
-      [type]="options?.type"
-      [disabled]="options?.disabled">{{options?.text}}</li-button>
+      [type]="options.type"
+      [disabled]="options.disabled">{{options.text}}</li-button>
   `
 })
 export class ButtonComponent { 

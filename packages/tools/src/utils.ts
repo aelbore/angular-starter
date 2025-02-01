@@ -65,6 +65,10 @@ export const getElementsPaths = (rootDir?: string) => {
   return getPackagePaths({ rootDir, packageName: 'elements' })
 }
 
+export const getPagesPaths = (rootDir?: string) => {
+  return getPackagePaths({ rootDir, packageName: 'pages' })
+}
+
 export const getPackagePaths = ({ 
   rootDir, 
   packageName 
@@ -84,7 +88,8 @@ export const getPackagePaths = ({
 
 export const viteAlias = (rootDir?: string) => {
   const ROOT_DIR = rootDir ?? getRootDir()
-  return Object.assign({}, viteTsPaths(ROOT_DIR), getElementsPaths(ROOT_DIR))
+  return Object.assign({}, 
+    viteTsPaths(ROOT_DIR), getElementsPaths(ROOT_DIR), getPagesPaths(ROOT_DIR))
 }
 
 export const vitestAlias = (rootDir?: string) => {

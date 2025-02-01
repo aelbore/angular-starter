@@ -1,0 +1,53 @@
+.arrow {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs, 0.8));
+  width: var(--arrow-width, 22px);
+  height: var(--arrow-height, 22px);
+
+  &::after, &::before {
+    content: "";
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+  }
+
+  &::after {
+    width: 8px;
+    height: 8px;
+    border-left: 2px solid;
+    left: 7px;
+  }
+
+  &::before {
+    width: var(--arrow-before-width, 2px);
+    height: var(--arrow-before-height, 16px);
+    left: 10px;
+    background: currentColor;
+  }
+}
+
+.arrow-down {
+  &::after, &::before {
+    bottom: var(--arrow-down-bottom, 4px);
+  }
+
+  &::after {
+    border-top: none;
+    border-bottom: 2px solid;
+    transform: rotate(-45deg);
+  }
+}
+
+.arrow-up {
+  &::after, &::before {
+    top: 4px;
+  }
+
+  &::after {
+    border-bottom: none;
+    border-top: 2px solid;
+    transform: rotate(45deg);
+  }
+}

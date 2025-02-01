@@ -5,8 +5,13 @@ import '@lithium/elements/avatar'
 
 import type { ProfileCardValue } from '@lithium/components/types'
 
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { Component, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core'
+
 import { ProfileCardComponent } from '@lithium/components/profile-card'
+import { toSignal } from '@angular/core/rxjs-interop'
+import { HttpClient } from '@angular/common/http'
+import { map } from 'rxjs/internal/operators/map'
+import { catchError, of } from 'rxjs'
 
 @Component({
   selector: 'sb-profile-cards',
@@ -16,7 +21,7 @@ import { ProfileCardComponent } from '@lithium/components/profile-card'
   template: `
     <article class="profile-cards">
       <li-checkbox-group (selected-changed)="selectedChanged($event)">
-        @for (value of data; track value.nbkId) {
+        @for (value of cards(); track value.nbkId) {
           <profile-card [value]="value">
             <li-checkbox [value]="value.nbkId"></li-checkbox>
           </profile-card>
@@ -27,20 +32,18 @@ import { ProfileCardComponent } from '@lithium/components/profile-card'
   styleUrl: './profile-cards.scss'
 })
 export class ProfileCardsComponent { 
-  data: ProfileCardValue[] = [
-    {
-      nbkId: 'zkzujo6',
-      name: 'Arjay Elbore',
-      image: 'https://2019.ng-my.org/assets/imgs/speakers/arjay-elbore.webp',
-      title: 'Managing Director',
-      role: 'Head Corporate Banking',
-      email: 'arjay.elbore@bofa.com',
-      phone: {
-        office: '121212121',
-        mobile: '+6598142033'
-      }
-    }
-  ]
+  #http = inject(HttpClient)
+
+  cards = toSignal(this.#getProfileCards())
+
+  #getProfileCards() {
+    return this.#http.get<ProfileCardValue[]>(
+      '/api/profile-cards', { observe: 'response' }
+    ).pipe(
+      map(response => response.body),
+      catchError(error => of(error))
+    )
+  }
 
   selectedChanged($event: Event) {
     console.info($event)

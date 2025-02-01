@@ -1,0 +1,55 @@
+@use './_theme.scss' as theme;
+
+@include theme.dark {
+  search-people {
+    --search-people-header-title: var(--primary-white);
+    --sort-button-color: var(--primary-white);
+    --search-people-sort-header-divider: var(--primary-white);
+
+    &::part(people) {
+      --card-bg-color: #141414;
+    }
+
+    &::part(profile-card) {
+      --card-border-color: #2e2e31;  
+    }
+
+    &::part(name), &::part(role) {
+      color: var(--primary-white);
+    }
+
+    &::part(name) {
+      font-size: 20px;
+    }
+
+    &::part(sort-button) {
+      --button-text-color: var(--secondary-yellow);
+    }
+  }
+}
+
+@include theme.light {
+  search-people {
+    --search-people-sort-header-divider: var(--secondary-light-grey);
+    --search-people-card-border-color: #ededed;
+
+    &::part(people) {
+      --card-bg-color: var(--primary-white);    
+      --card-box-shadow: 0 1px 5px #dce7f6;
+    }
+
+    &::part(sort-button) {
+      --button-text-color: var(--primary-bright-blue);
+      --button-hover-bg-color: #f5f5f5;
+    }
+
+    &::part(profile-card) {
+      --card-border-color: #ededed;
+    }
+
+    &::part(name) {
+      --profile-card-name-color: var(--primary-bright-blue);
+      --profile-card-name-font-size: 20px;
+    }
+  }
+}

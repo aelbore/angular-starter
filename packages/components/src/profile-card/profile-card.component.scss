@@ -10,6 +10,7 @@
     --card-width: var(--profile-card-width, fit-content);
     --card-bg-color: transparent;
     --checkbox-margin: 3px 0px 3px 1px;
+    --card-box-shadow: none;
 
     li-content {
       --content-padding: 0;
@@ -37,8 +38,14 @@
 
       label {
         &[for=name] {
-          font-size: 16px;
+          font-size: var(--profile-card-name-font-size, 16px);
           color: var(--profile-card-name-color);
+        }
+
+        &[for=role] {
+          font-size: 14px;
+          color: var(--profile-card-role-color);
+          display: var(--profile-card-role-diplay, none);
         }
 
         &[for=title] {
@@ -86,11 +93,34 @@
 
 :host([reverse]) {
   .profile-card {
-    li-content{
+    li-content {
       > section, > section > section {
-        display: flex;
-        flex-direction: row-reverse;
-        width: fit-content;
+        grid-template-columns: 1fr;
+      }
+
+      > section > section {
+        grid-template-columns: 1fr auto;
+
+        > section {
+          order: -1;
+        }
+      }
+    }
+
+    &--info {
+      align-items: center;
+      height: fit-content;
+      padding: 10px 0px;
+      row-gap: 5px;
+
+      label {
+        &[for=name] {
+          height: var(--profile-card-name-font-size, 16px);
+        }
+
+        &[for=role], &[for=title]  {
+          height: 14px;
+        }
       }
     }
   }

@@ -1,14 +1,11 @@
 import type { ProfileCardValue } from '@lithium/components/types'
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, EventEmitter, Input, Output, booleanAttribute, inject, HostBinding, ViewEncapsulation } from '@angular/core'
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, EventEmitter, Input, Output, booleanAttribute, inject, ViewEncapsulation } from '@angular/core'
 
 @Component({
   selector: 'profile-card',
   standalone: true,
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   encapsulation: ViewEncapsulation.ShadowDom,
-  host: {
-    '[class]': 'profileCard'
-  }, 
   template: `
     <li-card part="card" class="profile-card" (click)="onClick.emit()">
       <li-content>
@@ -16,26 +13,35 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, EventEmitter, Input, Out
           <ng-content select="li-checkbox"></ng-content>
           <section>
             <li-avatar [src]="value.image" [alt]=""></li-avatar>
-            <section class="profile-card--info">
-              <label for="name">{{value.name}}</label>
+            <section class="col profile-card--info">
+              <label for="name" part="name">{{value.name}}</label>
               @if (value.title) {
-                <label for="title">{{value.title}}</label>
+                <label for="title" part="title">{{value.title}}</label>
+              }
+              @if (value.role) {
+                <label for="role" part="role ellipsis">{{value.role}}</label>
               }
               @if (value.email) {
-                <label for="email">
+                <label for="email" part="email">
                   <a href="mailto:{{value.email}}">{{value.email}}</a>
                 </label>
               }
-              <section>
-                <label for="office">
-                  <span>OFFICE</span>
-                  <span>{{value.phone?.office}}</span>
-                </label>
-                <label for="mobile">
-                  <span>MOBILE</span>
-                  <span>{{value.phone?.mobile}}</span>
-                </label>
-              </section>
+              @if (value.contacts) {
+                <section>
+                  @if (value.contacts.office) {
+                    <label for="office">
+                      <span>OFFICE</span>
+                      <span>{{value.contacts.office}}</span>
+                    </label>
+                  }
+                  @if (value.contacts.mobile) {
+                    <label for="mobile">
+                      <span>MOBILE</span>
+                      <span>{{value.contacts.mobile}}</span>
+                    </label>
+                  }
+                </section>
+              }
             </section>
           </section>
         </section>
@@ -56,8 +62,6 @@ export class ProfileCardComponent {
     if (value) element.setAttribute('reverse', '')
     else element.removeAttribute('reverse')
   }
-
-  @HostBinding('class') profileCard: string = ''
 
   @Output() onClick = new EventEmitter<void>()
 }

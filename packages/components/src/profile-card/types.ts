@@ -5,7 +5,7 @@ export type ProfileCardValue = {
   title?: string
   email?: string
   role?: string
-  phone?: {
+  contacts?: {
     office?: string
     mobile?: string
   }

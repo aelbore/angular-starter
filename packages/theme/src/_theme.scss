@@ -1,0 +1,23 @@
+@mixin dark {
+  [theme="dark"] {
+    @content;
+  }
+
+  body[class="dark"] {
+    @content;
+  }
+}
+
+@mixin light {
+  [theme="light"] {
+    @content;
+  }
+
+  body[class="light"] {
+    @content;
+  }
+}
+
+body {
+  background: var(--theme-background);
+}

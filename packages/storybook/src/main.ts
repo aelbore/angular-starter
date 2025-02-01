@@ -22,5 +22,6 @@ export default {
         viteConfigPath: join(__dirname, '../vite.config.ts')
       }
     }
-  }
+  },
+  staticDirs: ['../public']
 } as StorybookConfig & StorybookConfigVite

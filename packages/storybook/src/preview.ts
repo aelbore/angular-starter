@@ -1,8 +1,19 @@
 import '@lithium/theme'
 
-import type { Preview } from '@storybook/angular'
+import { type Preview, applicationConfig } from '@storybook/angular'
+import { provideHttpClient } from '@angular/common/http'
+
+import { initialize, mswLoader } from 'msw-storybook-addon'
+
+initialize()
 
 export default {
+  loaders: [ mswLoader ],
+  decorators: [
+    applicationConfig({
+      providers: [ provideHttpClient() ]
+    })
+  ],
   parameters: {
     backgrounds: { disable: true },
     actions: { 

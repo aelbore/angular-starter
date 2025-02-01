@@ -351,13 +351,6 @@ const AddInlineCssPlugin = () => {
       const file = id.split('?')[0]
       if (filter?.tsFilter?.(file)) {
         return transform(code, id, {
-          compilerOptions: {
-            paths: {
-              '@lithium/components/core': [
-                './src/core/index.ts'
-              ]
-            }
-          },
           transformers: [ AddInlineCss() ]
         })
       }

@@ -15,15 +15,22 @@
   "author": "Arjay Elbore <aelbore.sg@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@storybook/addon-essentials": "^8.5.1",
-    "@storybook/addon-interactions": "^8.5.1",
-    "@storybook/addon-links": "^8.5.1",
-    "@storybook/addon-a11y": "^8.5.1",
-    "@storybook/angular": "^8.5.1",
-    "@storybook/blocks": "^8.5.1",
-    "@storybook/builder-vite": "^8.5.1",
-    "@storybook/test": "^8.5.1",
-    "@storybook/types": "^8.5.1",
-    "storybook": "^8.5.1"
+    "@storybook/addon-essentials": "^8.5.2",
+    "@storybook/addon-interactions": "^8.5.2",
+    "@storybook/addon-links": "^8.5.2",
+    "@storybook/addon-a11y": "^8.5.2",
+    "@storybook/angular": "^8.5.2",
+    "@storybook/blocks": "^8.5.2",
+    "@storybook/builder-vite": "^8.5.2",
+    "@storybook/test": "^8.5.2",
+    "@storybook/types": "^8.5.2",
+    "msw-storybook-addon": "^2.0.4",
+    "msw": "^2.7.0",
+    "storybook": "^8.5.2"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
