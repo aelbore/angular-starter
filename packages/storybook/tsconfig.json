@@ -6,5 +6,5 @@
   "include": [ 
     "../**/*.ts",
     "../../src/app/**/*.ts"
-  ]
+, "src/middleware.js"  ]
 }

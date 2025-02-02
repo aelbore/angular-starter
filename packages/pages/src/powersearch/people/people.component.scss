@@ -8,6 +8,11 @@
     --card-border-radius: 10px;
     --card-padding: 10px 30px;
 
+    &::part(card) {
+      min-width: 255px;
+      max-width: 400px;
+    }
+
     li-header {
       --header-border-style: none;
 
@@ -51,6 +56,12 @@
           }
 
           &[reverse] {
+            &::part(email), 
+            &::part(contacts-office), 
+            &::part(contacts-mobile) {
+              display: none;
+            }
+
             &::part(ellipsis) {
               display: inline-block;
               white-space: nowrap;

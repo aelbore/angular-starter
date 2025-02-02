@@ -1,5 +1,18 @@
 import type { ProfileCardValue } from '@lithium/components/types'
-import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, EventEmitter, Input, Output, booleanAttribute, inject, ViewEncapsulation } from '@angular/core'
+import { 
+  Component, 
+  CUSTOM_ELEMENTS_SCHEMA, 
+  ViewEncapsulation, 
+  ElementRef, 
+  booleanAttribute, 
+  viewChild, 
+  inject, 
+  input, 
+  output,
+  computed, 
+  effect, 
+  OnDestroy
+} from '@angular/core'
 
 @Component({
   selector: 'profile-card',
@@ -12,32 +25,37 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, EventEmitter, Input, Out
         <section>
           <ng-content select="li-checkbox"></ng-content>
           <section>
-            <li-avatar [src]="value.image" [alt]=""></li-avatar>
-            <section class="col profile-card--info">
-              <label for="name" part="name">{{value.name}}</label>
-              @if (value.title) {
-                <label for="title" part="title">{{value.title}}</label>
+            @if (!hasContent()) {
+              <li-avatar [src]="value()?.image" [alt]="value()?.alt"></li-avatar>
+            }   
+            <div #avatar>
+              <ng-content select="avatar"></ng-content>   
+            </div>   
+            <section class="profile-card--info">
+              <label for="name" part="name">{{value()?.name}}</label>
+              @if (value()?.title) {
+                <label for="title" part="title">{{value()?.title}}</label>
               }
-              @if (value.role) {
-                <label for="role" part="role ellipsis">{{value.role}}</label>
+              @if (value()?.role) {
+                <label for="role" part="role ellipsis">{{value()?.role}}</label>
               }
-              @if (value.email) {
+              @if (value()?.email) {
                 <label for="email" part="email">
-                  <a href="mailto:{{value.email}}">{{value.email}}</a>
+                  <a href="mailto:{{value()?.email}}">{{value()?.email}}</a>
                 </label>
               }
-              @if (value.contacts) {
+              @if (value()?.contacts) {
                 <section>
-                  @if (value.contacts.office) {
-                    <label for="office">
+                  @if (value()?.contacts?.office) {
+                    <label for="office" part="contacts-office">
                       <span>OFFICE</span>
-                      <span>{{value.contacts.office}}</span>
+                      <span>{{value()?.contacts?.office}}</span>
                     </label>
                   }
-                  @if (value.contacts.mobile) {
-                    <label for="mobile">
+                  @if (value()?.contacts?.mobile) {
+                    <label for="mobile" part="contacts-mobile">
                       <span>MOBILE</span>
-                      <span>{{value.contacts.mobile}}</span>
+                      <span>{{value()?.contacts?.mobile}}</span>
                     </label>
                   }
                 </section>
@@ -50,18 +68,24 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, EventEmitter, Input, Out
   `,
   styleUrl: './profile-card.component.scss'  
 })
-export class ProfileCardComponent { 
+export class ProfileCardComponent implements OnDestroy {
   #elementRef = inject(ElementRef)
 
-  @Input() value!: ProfileCardValue
-
-  @Input({ transform: booleanAttribute })
-  set reverse(value: boolean) {
+  #reverseEffect = effect(() => {
     const element = this.#elementRef.nativeElement as HTMLElement
+    if (this.reverse()) element?.setAttribute('reverse', '')
+    else element?.removeAttribute('reverse')
+  })
 
-    if (value) element.setAttribute('reverse', '')
-    else element.removeAttribute('reverse')
+  value = input<ProfileCardValue>()
+  reverse = input(false, { transform: booleanAttribute })
+
+  avatar = viewChild.required<ElementRef<HTMLDivElement>>('avatar')
+  hasContent = computed(() => this.avatar()!.nativeElement?.innerHTML?.length > 0)
+
+  onClick = output<void>()
+
+  ngOnDestroy() {
+    this.#reverseEffect.destroy()
   }
-
-  @Output() onClick = new EventEmitter<void>()
 }

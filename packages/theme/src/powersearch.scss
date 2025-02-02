@@ -8,6 +8,7 @@
 
     &::part(people) {
       --card-bg-color: #141414;
+      --card-box-shadow: 0 0px 10px #000;
     }
 
     &::part(profile-card) {

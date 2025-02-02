@@ -24,6 +24,7 @@
     "@storybook/builder-vite": "^8.5.2",
     "@storybook/test": "^8.5.2",
     "@storybook/types": "^8.5.2",
+    "http-proxy-middleware": "^3.0.3",
     "msw-storybook-addon": "^2.0.4",
     "msw": "^2.7.0",
     "storybook": "^8.5.2"

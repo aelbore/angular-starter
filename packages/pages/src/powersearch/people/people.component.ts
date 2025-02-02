@@ -1,16 +1,30 @@
-import { ChangeDetectionStrategy, Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, EffectRef, inject, input, OnDestroy, signal, ViewEncapsulation } from '@angular/core'
+import { 
+  ChangeDetectionStrategy, 
+  Component, 
+  computed, 
+  CUSTOM_ELEMENTS_SCHEMA, 
+  effect, 
+  inject, 
+  input, 
+  OnDestroy, 
+  signal, 
+  ViewEncapsulation
+} from '@angular/core'
 import { ProfileCardComponent } from '@lithium/components/profile-card'
+import { AvatarComponent } from '@lithium/components/avatar'
 
 import { SearchPeopleService } from './people.service'
-import { ProfileCardValue } from '@lithium/components/types'
-import { ButtonOutputValue, SortState } from './types'
 import { SortButtonComponent } from './sort-button.component'
+
+import type { ProfileCardValue } from '@lithium/components/types'
+import type { ButtonOutputValue } from './types'
+import { ImageAlt } from './avatar-alt.pipe'
 
 @Component({
   selector: 'search-people',
   standalone: true,
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  imports: [ ProfileCardComponent, SortButtonComponent ],
+  imports: [ ProfileCardComponent, SortButtonComponent, ImageAlt, AvatarComponent ],
   providers: [ SearchPeopleService ],
   encapsulation: ViewEncapsulation.ShadowDom,
   template: `
@@ -19,20 +33,23 @@ import { SortButtonComponent } from './sort-button.component'
         <div part="header-title">People</div>
         <div class="sort-header">
           <sort-button name="date" exportparts="button:sort-button,arrow,span" 
-            [active]="sortState() === 'date'" 
+            [active]="sort() === 'date'" 
             (onSort)="onSort($event)">Published Date</sort-button>
           <span part="sort-divider" class="sort-header--divider">|</span>
           <sort-button name="title" exportparts="button:sort-button,arrow,span"
-            [active]="sortState() === 'title'" 
+            [active]="sort() === 'title'" 
             (onSort)="onSort($event)">Title</sort-button>
         </div>
       </li-header>
       <li-content>
         <section>
           @for (person of people(); track person.nbkId) {
-            <profile-card reverse
+            <profile-card 
+              reverse
               exportparts="card:profile-card,name,title,role,ellipsis" 
-              [value]="person"></profile-card>
+              [value]="person">
+              <avatar [src]="person.image!" [alt]="person.name! | imgAlt" />
+            </profile-card>
           }
         </section>
       </li-content>
@@ -46,28 +63,26 @@ import { SortButtonComponent } from './sort-button.component'
 })
 export class SearchPeopleComponent implements OnDestroy { 
   #service = inject(SearchPeopleService)
-  #effect!: EffectRef
 
+  #effect = effect(() => {
+    if (!this.searchText()) return
+    this.#service.params.update(params => {
+      return { ...params, searchText: this.searchText() }
+    })
+  })
+  
   searchText = input('')
+
+  sort = signal('date')
 
   people = computed(() => this.#service.result()?.results as ProfileCardValue[])
   totalCount = computed(() => this.#service.result()?.totalCount)
-  sortState = signal<SortState>('date')
-
-  constructor() {
-    this.#effect = effect(() => {
-      if (!this.searchText()) return
-      this.#service.params.update(params => {
-        return { ...params, searchText: this.searchText() }
-      })
-    })
-  }
-
+  
   ngOnDestroy() {
     this.#effect.destroy()
   }
 
   onSort(value: ButtonOutputValue) {
-    this.sortState.set(value.name)
+    this.sort.set(value.name)
   }
 }

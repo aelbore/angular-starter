@@ -115,11 +115,12 @@
 
       label {
         &[for=name] {
-          height: var(--profile-card-name-font-size, 16px);
+          //height: var(--profile-card-name-font-size, 16px);
         }
 
-        &[for=role], &[for=title]  {
-          height: 14px;
+        &[for=role], 
+        &[for=title]  {
+          //height: 14px;
         }
       }
     }
