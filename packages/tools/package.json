@@ -19,6 +19,7 @@
   "dependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
+    "@polka/send": "^1.0.0-next.28",
     "@rollup/pluginutils": "^5.1.4",
     "@types/node": "^22.12.0",
     "eslint": "^9.19.0",

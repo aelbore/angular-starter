@@ -79,3 +79,7 @@
     }
   }
 }
+
+:host([total-count="0"]) {
+  --search-people-display: none;
+}

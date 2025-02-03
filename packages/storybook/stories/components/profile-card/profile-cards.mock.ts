@@ -6,7 +6,7 @@ export const getProfileCards = () => {
       {
         nbkId: 'zkzujo6',
         name: 'Arjay Elbore',
-        image: 'https://2019.ng-my.org/assets/imgs/speakers/arjay-elbore.webp',
+        image: '/avatar',
         title: 'Managing Director',
         role: 'Head Corporate Banking',
         email: 'arjay.elbore@bofa.com',

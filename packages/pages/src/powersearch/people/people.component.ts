@@ -4,6 +4,7 @@ import {
   computed, 
   CUSTOM_ELEMENTS_SCHEMA, 
   effect, 
+  ElementRef, 
   inject, 
   input, 
   OnDestroy, 
@@ -44,11 +45,10 @@ import { ImageAlt } from './avatar-alt.pipe'
       <li-content>
         <section>
           @for (person of people(); track person.nbkId) {
-            <profile-card 
-              reverse
+            <profile-card reverse
               exportparts="card:profile-card,name,title,role,ellipsis" 
               [value]="person">
-              <avatar [src]="person.image!" [alt]="person.name! | imgAlt" />
+              <avatar base64 [src]="person.image!" [alt]="person.name! | imgAlt" />
             </profile-card>
           }
         </section>
@@ -63,12 +63,18 @@ import { ImageAlt } from './avatar-alt.pipe'
 })
 export class SearchPeopleComponent implements OnDestroy { 
   #service = inject(SearchPeopleService)
+  #elementRef = inject(ElementRef)
 
   #effect = effect(() => {
     if (!this.searchText()) return
     this.#service.params.update(params => {
       return { ...params, searchText: this.searchText() }
     })
+  })
+
+  #totalCountEffect = effect(() => {
+    const element = this.#elementRef.nativeElement as HTMLElement
+    element.setAttribute('total-count', this.totalCount()?.toString() ?? '0')
   })
   
   searchText = input('')
@@ -80,6 +86,7 @@ export class SearchPeopleComponent implements OnDestroy {
   
   ngOnDestroy() {
     this.#effect.destroy()
+    this.#totalCountEffect.destroy()
   }
 
   onSort(value: ButtonOutputValue) {
