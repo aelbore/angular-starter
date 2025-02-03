@@ -1,6 +1,20 @@
+import 'dotenv/config'
+
 import send from '@polka/send'
 
+const toArrayBuffer = (base64) => {
+  const binaryString = atob(base64)
+  const bytes = new Uint8Array(binaryString.length)
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[index] = binaryString.charCodeAt(index)
+  }
+  return bytes.buffer
+}
+
 const getBufferAvatar = async () => {
+  const base64 = process.env.STORYBOOK_AVATAR_BASE64
+  if (base64) return toArrayBuffer(base64)
+
   const URL = 'https://2019.ng-my.org/assets/imgs/speakers/arjay-elbore.webp'
   const buffer = await fetch(URL).then(
     async (response) => response.arrayBuffer()
