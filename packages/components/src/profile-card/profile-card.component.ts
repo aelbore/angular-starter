@@ -69,10 +69,10 @@ import {
   styleUrl: './profile-card.component.scss'  
 })
 export class ProfileCardComponent implements OnDestroy {
-  #elementRef = inject(ElementRef)
+  #elementRef = inject<ElementRef<HTMLElement>>(ElementRef)
 
   #reverseEffect = effect(() => {
-    const element = this.#elementRef.nativeElement as HTMLElement
+    const element = this.#elementRef.nativeElement
     if (this.reverse()) element?.setAttribute('reverse', '')
     else element?.removeAttribute('reverse')
   })

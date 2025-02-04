@@ -6,7 +6,6 @@ import { SearchBaseService } from '../search-base.service'
 
 @Injectable()
 export class SearchPeopleService extends SearchBaseService  { 
-
   constructor() {
     super(createUrl('Bios'))
   }
@@ -14,5 +13,4 @@ export class SearchPeopleService extends SearchBaseService  {
   override getData<BiosSearchResult>(params: SearchParams) {
     return super.getData<BiosSearchResult>(params)
   }
-
 }

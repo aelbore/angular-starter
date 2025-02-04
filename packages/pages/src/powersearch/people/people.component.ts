@@ -3,28 +3,24 @@ import {
   Component, 
   computed, 
   CUSTOM_ELEMENTS_SCHEMA, 
-  effect, 
-  ElementRef, 
   inject, 
-  input, 
-  OnDestroy, 
   signal, 
   ViewEncapsulation
 } from '@angular/core'
+
+import { NgxPaginationModule } from 'ngx-pagination'
+
 import { ProfileCardComponent } from '@lithium/components/profile-card'
 import { AvatarComponent } from '@lithium/components/avatar'
 import { PaginationComponent } from '@lithium/components/pagination'
 
-import { NgxPaginationModule, PaginatePipeArgs } from 'ngx-pagination'
-
 import { SearchPeopleService } from './people.service'
 import { SortButtonComponent } from './sort-button.component'
 import { ImageAlt } from './avatar-alt.pipe'
+import { SectionBase } from '../section-base'
 
 import type { ProfileCardValue } from '@lithium/components/types'
-import type { PaginateArgs } from '@lithium/components/pagination/types'
-import { SortState, type ButtonOutputValue } from './types'
-import type { SearchParams } from '../types'
+import type { SortState, ButtonOutputValue } from './types'
 
 @Component({
   selector: 'search-people',
@@ -59,7 +55,8 @@ import type { SearchParams } from '../types'
           @for (person of people() | paginate: paginateArgs(); track person.nbkId) {
             <profile-card reverse
               exportparts="card:profile-card,name,title,role,ellipsis" 
-              [value]="person">
+              [value]="person"
+              (onClick)="onRedirect()">
               <avatar base64 [src]="person.image!" [alt]="person.name! | imgAlt" />
             </profile-card>
           }
@@ -75,47 +72,15 @@ import type { SearchParams } from '../types'
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './people.component.scss'
 })
-export class SearchPeopleComponent implements OnDestroy { 
-  #service = inject(SearchPeopleService)
-  #elementRef = inject<ElementRef<HTMLElement>>(ElementRef)
-
-  #effect = effect(() => {
-    if (!this.searchText()) return
-    this.#updateParams({ searchText: this.searchText() })
-  })
-
-  #totalCountEffect = effect(() => {
-    const element = this.#elementRef.nativeElement
-    element.setAttribute('total-count', this.totalCount()?.toString() ?? '0')
-  })
-  
-  searchText = input('')
+export class SearchPeopleComponent extends SectionBase { 
+  override service = inject(SearchPeopleService)
 
   sort = signal<SortState>('date')
-  paginateArgs = signal<PaginatePipeArgs & PaginateArgs>({
-    itemsPerPage: 2,
-    currentPage: 1,
-    maxSize: 10
-  })
+  people = computed(() => this.results() as ProfileCardValue[])
 
-  people = computed(() => (this.#service.result()?.results ?? []) as ProfileCardValue[])
-  totalCount = computed(() => this.#service.result()?.totalCount)
-
-  #updateParams(params: SearchParams) {
-    this.#service.params.update(value => ({ ...value, ...params }))
-  }
-  
-  ngOnDestroy() {
-    this.#effect.destroy()
-    this.#totalCountEffect.destroy()
-  }
+  onRedirect() { }
 
   onSort(value: ButtonOutputValue) {
     this.sort.set(value.name)
-  }
-
-  onPageChange(currentPage: number) {
-    this.paginateArgs.update(args => ({ ...args, currentPage}))
-    this.#updateParams({ PageIndex: currentPage })
   }
 }
