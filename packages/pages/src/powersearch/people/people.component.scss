@@ -76,6 +76,12 @@
 
     li-footer {
       --footer-border-style: none;
+      --footer-align-items: center;
+
+      &::part(footer) {
+        height: auto;
+        padding: 20px 0px 5px;
+      }
     }
   }
 }

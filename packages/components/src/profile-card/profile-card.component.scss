@@ -112,17 +112,6 @@
       height: fit-content;
       padding: 10px 0px;
       row-gap: 5px;
-
-      label {
-        &[for=name] {
-          //height: var(--profile-card-name-font-size, 16px);
-        }
-
-        &[for=role], 
-        &[for=title]  {
-          //height: 14px;
-        }
-      }
     }
   }
 }

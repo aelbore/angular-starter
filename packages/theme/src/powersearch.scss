@@ -5,6 +5,10 @@
     --search-people-header-title: var(--primary-white);
     --sort-button-color: var(--primary-white);
     --search-people-sort-header-divider: var(--primary-white);
+    --pagination-current-border-bottom: var(--secondary-yellow);
+    --pagination-chevron-border-color: var(--secondary-yellow);
+    --pagination-number-color: var(--primary-white);
+    --pagination-hover-bg-color: #cacaca;
 
     &::part(people) {
       --card-bg-color: #141414;
@@ -30,9 +34,15 @@
 }
 
 @include theme.light {
+  --border-blue-color: #2199e8;
+  --border-card-color: #ededed;
+
   search-people {
     --search-people-sort-header-divider: var(--secondary-light-grey);
-    --search-people-card-border-color: #ededed;
+    --search-people-card-border-color: var(--border-card-color);
+    --pagination-current-border-bottom: var(--border-blue-color);
+    --pagination-chevron-border-color: var(--border-blue-color);
+    --pagination-hover-bg-color: #cacaca;
 
     &::part(people) {
       --card-bg-color: var(--primary-white);    
@@ -45,7 +55,7 @@
     }
 
     &::part(profile-card) {
-      --card-border-color: #ededed;
+      --card-border-color:  var(--border-card-color);
     }
 
     &::part(name) {

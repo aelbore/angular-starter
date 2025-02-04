@@ -1,0 +1,65 @@
+:host {
+  .chevron {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(1.1);
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
+    border: 1px solid var(
+      --pagination-chevron-border-color
+    );
+    color: var(
+      --pagination-chevron-border-color
+    );
+
+    &::after {
+      content: "";
+      display: block;
+      box-sizing: border-box;
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-bottom: 2px solid;
+      left: 6px;
+      top: 7px;
+    }
+  }
+
+  .nav-button {
+    border: none;
+    background: transparent;
+    width: fit-content;
+    height: fit-content;
+    margin: 0px 5px;
+    padding: 1px 6px;
+  
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:disabled, 
+    i.disabled {
+      cursor: not-allowed;
+      color: #cacaca;
+      border-color: #cacaca;
+    }
+  }
+}
+
+:host([direction="left"]) {
+  .chevron::after {
+    border-left: 2px solid;
+    transform: rotate(45deg);
+    left: 8px;
+    top: 7px;
+  }
+}
+
+:host([direction="right"]) {
+  .chevron::after {
+    border-right: 2px solid;
+    transform: rotate(-45deg);
+  }
+}

@@ -13,19 +13,31 @@ import {
 } from '@angular/core'
 import { ProfileCardComponent } from '@lithium/components/profile-card'
 import { AvatarComponent } from '@lithium/components/avatar'
+import { PaginationComponent } from '@lithium/components/pagination'
+
+import { NgxPaginationModule, PaginatePipeArgs } from 'ngx-pagination'
 
 import { SearchPeopleService } from './people.service'
 import { SortButtonComponent } from './sort-button.component'
+import { ImageAlt } from './avatar-alt.pipe'
 
 import type { ProfileCardValue } from '@lithium/components/types'
-import type { ButtonOutputValue } from './types'
-import { ImageAlt } from './avatar-alt.pipe'
+import type { PaginateArgs } from '@lithium/components/pagination/types'
+import { SortState, type ButtonOutputValue } from './types'
+import type { SearchParams } from '../types'
 
 @Component({
   selector: 'search-people',
   standalone: true,
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  imports: [ ProfileCardComponent, SortButtonComponent, ImageAlt, AvatarComponent ],
+  imports: [ 
+    ProfileCardComponent, 
+    SortButtonComponent, 
+    ImageAlt, 
+    AvatarComponent,
+    PaginationComponent,
+    NgxPaginationModule
+  ],
   providers: [ SearchPeopleService ],
   encapsulation: ViewEncapsulation.ShadowDom,
   template: `
@@ -44,7 +56,7 @@ import { ImageAlt } from './avatar-alt.pipe'
       </li-header>
       <li-content>
         <section>
-          @for (person of people(); track person.nbkId) {
+          @for (person of people() | paginate: paginateArgs(); track person.nbkId) {
             <profile-card reverse
               exportparts="card:profile-card,name,title,role,ellipsis" 
               [value]="person">
@@ -54,7 +66,9 @@ import { ImageAlt } from './avatar-alt.pipe'
         </section>
       </li-content>
       <li-footer>
-        <ng-content></ng-content>
+        <pagination 
+          [paginateArgs]="paginateArgs()" 
+          (pageChange)="onPageChange($event)" />
       </li-footer>
     </li-card> 
   `,
@@ -63,26 +77,33 @@ import { ImageAlt } from './avatar-alt.pipe'
 })
 export class SearchPeopleComponent implements OnDestroy { 
   #service = inject(SearchPeopleService)
-  #elementRef = inject(ElementRef)
+  #elementRef = inject<ElementRef<HTMLElement>>(ElementRef)
 
   #effect = effect(() => {
     if (!this.searchText()) return
-    this.#service.params.update(params => {
-      return { ...params, searchText: this.searchText() }
-    })
+    this.#updateParams({ searchText: this.searchText() })
   })
 
   #totalCountEffect = effect(() => {
-    const element = this.#elementRef.nativeElement as HTMLElement
+    const element = this.#elementRef.nativeElement
     element.setAttribute('total-count', this.totalCount()?.toString() ?? '0')
   })
   
   searchText = input('')
 
-  sort = signal('date')
+  sort = signal<SortState>('date')
+  paginateArgs = signal<PaginatePipeArgs & PaginateArgs>({
+    itemsPerPage: 2,
+    currentPage: 1,
+    maxSize: 10
+  })
 
-  people = computed(() => this.#service.result()?.results as ProfileCardValue[])
+  people = computed(() => (this.#service.result()?.results ?? []) as ProfileCardValue[])
   totalCount = computed(() => this.#service.result()?.totalCount)
+
+  #updateParams(params: SearchParams) {
+    this.#service.params.update(value => ({ ...value, ...params }))
+  }
   
   ngOnDestroy() {
     this.#effect.destroy()
@@ -91,5 +112,10 @@ export class SearchPeopleComponent implements OnDestroy {
 
   onSort(value: ButtonOutputValue) {
     this.sort.set(value.name)
+  }
+
+  onPageChange(currentPage: number) {
+    this.paginateArgs.update(args => ({ ...args, currentPage}))
+    this.#updateParams({ PageIndex: currentPage })
   }
 }

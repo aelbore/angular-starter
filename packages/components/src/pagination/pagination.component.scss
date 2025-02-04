@@ -1,0 +1,35 @@
+:host {
+  pagination-template {
+    display: table;
+    margin: auto;
+
+    > section {
+      display: flex;
+      align-items: start;
+      column-gap: 5px;
+
+      ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        column-gap: 3px;
+
+        li {
+          padding: 3px 8px 0px 8px;
+          color: var(--pagination-number-color);
+
+          &:hover:not(&.current) {
+            background-color: var(--pagination-hover-bg-color);
+            cursor: pointer;
+          }
+
+          &.current {
+            border-bottom: 2px solid;
+            border-color: var(--pagination-current-border-bottom);
+          }
+        }
+      }
+    }
+  }
+}
