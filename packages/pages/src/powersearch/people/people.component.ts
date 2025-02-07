@@ -8,12 +8,12 @@ import {
 } from '@angular/core'
 
 import { NgxPaginationModule } from 'ngx-pagination'
-import { MatTooltipModule } from '@angular/material/tooltip'
 
 import { ProfileCardComponent } from '@lithium/components/profile-card'
 import { AvatarComponent } from '@lithium/components/avatar'
 import { PaginationComponent } from '@lithium/components/pagination'
 import { SectionBase, SortButtonComponent } from '@lithium/pages/powersearch/common/components'
+import { TooltipDirective } from '@lithium/pages/powersearch/common/directives'
 
 import { SearchPeopleService } from './people.service'
 import { ImageAlt } from './avatar-alt.pipe'
@@ -32,7 +32,7 @@ import type { SortState, ButtonOutputValue } from '@lithium/pages/powersearch/co
     AvatarComponent,
     PaginationComponent,
     NgxPaginationModule,
-    MatTooltipModule
+    TooltipDirective
   ],
   providers: [ SearchPeopleService ],
   template: `
@@ -55,9 +55,9 @@ import type { SortState, ButtonOutputValue } from '@lithium/pages/powersearch/co
             <profile-card reverse
               exportparts="card:profile-card,name,title,role,ellipsis" 
               [value]="person"        
-              [matTooltipPosition]="'before'"
-              [matTooltipClass]="'search-tooltip'"
-              [matTooltip]="tooltip(person)"
+              [tooltipPosition]="'left'"
+              [tooltipClass]="'search-tooltip'"
+              [tooltip]="tooltip(person)"
               (onClick)="onRedirect()">
               <avatar base64 [src]="person.image!" [alt]="person.name! | imgAlt" />
             </profile-card>

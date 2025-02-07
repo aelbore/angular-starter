@@ -1,6 +1,8 @@
 @use '../styles.scss' as styles;
 
 :host {
+  cursor: pointer;
+
   li-card {
     --card-radius: 0;
     --card-grid-rows: auto;
