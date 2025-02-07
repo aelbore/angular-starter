@@ -1,5 +1,17 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, signal, output, input, ViewEncapsulation } from '@angular/core'
-import { ArrowState, ButtonOutputValue, SortState } from './types'
+import { 
+  Component, 
+  CUSTOM_ELEMENTS_SCHEMA, 
+  signal, 
+  output, 
+  input, 
+  ViewEncapsulation 
+} from '@angular/core'
+
+import type { 
+  ArrowState, 
+  ButtonOutputValue, 
+  SortState 
+} from '@lithium/pages/powersearch/common/types'
 
 @Component({
   selector: 'sort-button',
@@ -24,36 +36,7 @@ import { ArrowState, ButtonOutputValue, SortState } from './types'
       }
     </li-button>
   `,
-  styles: `
-    :host {
-      li-button {        
-        --button-bg-color: transparent;
-        --button-font-size: 14px;
-        --button-border-radius: 4px;
-        --button-padding: 8px;
-        --button-min-width: 64px;
-
-        --arrow-down-bottom: 8px;
-
-        .arrow-up {
-          transform: rotate(180deg);
-        }
-
-        svg {
-          width: 20px;
-          height: 20px;
-          fill: none;
-          color: var(--sort-button-color);
-        }
-
-        &::part(span) {
-          display: grid;
-          grid-template-columns: 1fr auto;
-          column-gap: 5px;
-        }
-      }
-    }
-  `
+  styleUrl: './sort-button.component.scss'
 })
 export class SortButtonComponent { 
   state = signal<ArrowState>('down')

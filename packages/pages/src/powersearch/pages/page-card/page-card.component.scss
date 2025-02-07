@@ -1,0 +1,67 @@
+@use '../styles.scss' as styles;
+
+:host {
+  li-card {
+    --card-radius: 0;
+    --card-grid-rows: auto;
+    --card-min-height: auto;
+    --card-height: auto;
+    --card-border: 0;
+    --card-width: var(--profile-card-width, fit-content);
+    --card-bg-color: transparent;
+    --checkbox-margin: 3px 0px 3px 1px;
+    --card-box-shadow: none;
+    --card-border: 1px solid;
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+    }
+
+    .content {
+      .initiative {
+        color: #780032;
+        background-color: #e4ccd6;
+      }
+
+      .ig, .ma, .levfin, .ecm {
+        color: #2d70cd;
+        background-color: #ccebf8;
+      }
+
+      .app-section, .quick-link {
+        color: #7c7c7c;
+        background-color: #eaeaea;
+      }
+
+      &--type {
+        padding: 3px 5px;
+        padding-top: 4px;
+        font-weight: 700;
+        border-radius: 100px;
+        text-align: center;
+        width: 70px;
+        font-size: 13px;
+        margin-bottom: 8px;
+        margin-top: 3px;
+      }
+
+      &--title,
+      &--description {
+        @include styles.ellipsis();
+      }
+
+      &--title {
+        font-size: 16px;
+        padding-bottom: 10px;
+        margin-top: 5px;
+        margin-bottom: 11px;
+        border-bottom: 1px solid var(--page-card-divider-color);
+      }
+
+      &--description {
+        font-size: 12px;
+      }
+    }
+  }
+}

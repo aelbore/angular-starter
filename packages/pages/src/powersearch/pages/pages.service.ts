@@ -6,12 +6,12 @@ import { SearchBaseService } from '@lithium/pages/powersearch/common/services'
 import type { SearchParams } from '@lithium/pages/powersearch/common/types'
 
 @Injectable()
-export class SearchPeopleService extends SearchBaseService  { 
+export class SearchPagesService extends SearchBaseService  { 
   constructor() {
-    super(createUrl('Bios'))
+    super(createUrl('Page'))
   }
 
-  override getData<BiosSearchResult>(params: SearchParams) {
-    return super.getData<BiosSearchResult>(params)
+  override getData<PagesSearchResult>(params: SearchParams) {
+    return super.getData<PagesSearchResult>(params)
   }
 }

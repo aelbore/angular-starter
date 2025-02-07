@@ -20,42 +20,45 @@ import {
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   encapsulation: ViewEncapsulation.ShadowDom,
   template: `
-    <li-card part="card" class="profile-card" (click)="onClick.emit()">
+    <li-card 
+      part="card" 
+      class="profile-card" 
+      (click)="onClick.emit(value()!)">
       <li-content>
         <section>
           <ng-content select="li-checkbox"></ng-content>
           <section>
             @if (!hasContent()) {
-              <li-avatar [src]="value()?.image" [alt]="value()?.alt"></li-avatar>
+              <li-avatar [src]="value().image" [alt]="value().alt"></li-avatar>
             }   
             <div #avatar>
               <ng-content select="avatar"></ng-content>   
             </div>   
             <section class="profile-card--info">
-              <label for="name" part="name">{{value()?.name}}</label>
-              @if (value()?.title) {
-                <label for="title" part="title">{{value()?.title}}</label>
+              <label for="name" part="name">{{value().name}}</label>
+              @if (value().title) {
+                <label for="title" part="title">{{value().title}}</label>
               }
-              @if (value()?.role) {
-                <label for="role" part="role ellipsis">{{value()?.role}}</label>
+              @if (value().role) {
+                <label for="role" part="role ellipsis">{{value().role}}</label>
               }
-              @if (value()?.email) {
+              @if (value().email) {
                 <label for="email" part="email">
-                  <a href="mailto:{{value()?.email}}">{{value()?.email}}</a>
+                  <a href="mailto:{{value().email}}">{{value().email}}</a>
                 </label>
               }
-              @if (value()?.contacts) {
+              @if (value().contacts) {
                 <section>
-                  @if (value()?.contacts?.office) {
+                  @if (value().contacts?.office) {
                     <label for="office" part="contacts-office">
                       <span>OFFICE</span>
-                      <span>{{value()?.contacts?.office}}</span>
+                      <span>{{value().contacts?.office}}</span>
                     </label>
                   }
-                  @if (value()?.contacts?.mobile) {
+                  @if (value().contacts?.mobile) {
                     <label for="mobile" part="contacts-mobile">
                       <span>MOBILE</span>
-                      <span>{{value()?.contacts?.mobile}}</span>
+                      <span>{{value().contacts?.mobile}}</span>
                     </label>
                   }
                 </section>
@@ -77,13 +80,13 @@ export class ProfileCardComponent implements OnDestroy {
     else element?.removeAttribute('reverse')
   })
 
-  value = input<ProfileCardValue>()
+  value = input.required<ProfileCardValue>()
   reverse = input(false, { transform: booleanAttribute })
 
   avatar = viewChild.required<ElementRef<HTMLDivElement>>('avatar')
   hasContent = computed(() => this.avatar()!.nativeElement?.innerHTML?.length > 0)
 
-  onClick = output<void>()
+  onClick = output<ProfileCardValue>()
 
   ngOnDestroy() {
     this.#reverseEffect.destroy()

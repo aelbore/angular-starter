@@ -6,16 +6,23 @@ import '@lithium/elements/button'
 
 import { Component, input, OnInit, viewChild } from '@angular/core'
 import { SearchPeopleComponent as SearchPeople } from '@lithium/pages/powersearch'
-import type { SearchParams } from '@lithium/pages/powersearch/types'
+import type { SearchParams } from '@lithium/pages/powersearch/common/types'
 
 @Component({
   selector: 'sb-search-people',
   standalone: true,
   imports: [ SearchPeople ],
   template: `
-    <search-people [searchText]="options().searchText!" />
+    <search-people 
+      [searchText]="options().searchText!" 
+      [itemsPerPage]="options().PageSize!"
+    />
   `,
-  styleUrl: './people.scss'
+  styles: `
+    :host {
+      --search-people-width: 100%;
+    } 
+  `
 })
 export class SearchPeopleComponent implements OnInit { 
   options = input<SearchParams>({})

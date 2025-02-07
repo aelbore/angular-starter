@@ -1,0 +1,10 @@
+@use '../common/styles.scss' as styles;
+
+@include styles.base();
+@include styles.header();
+
+:host {
+  li-card {
+    --card-width: var(--search-page-width);
+  }
+}

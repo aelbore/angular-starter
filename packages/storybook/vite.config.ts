@@ -11,6 +11,7 @@ import baseConfig from '../tools/vite.config'
 export default mergeConfig(
   baseConfig, 
   defineConfig({
+    logLevel: 'silent',
     optimizeDeps: {
       include: [
         '@storybook/angular',

@@ -4,6 +4,7 @@
     "@lithium/tsconfig/tsconfig.paths.json"
   ],
   "include": [ 
-    "./**/*.ts"
-, "packages/storybook/src/middleware.js", "packages/storybook/src/middleware.js"  ]
+    "./**/*.ts", 
+    "packages/storybook/src/middleware.js"
+  ]
 }

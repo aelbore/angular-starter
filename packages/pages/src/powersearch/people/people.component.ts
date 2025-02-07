@@ -4,23 +4,22 @@ import {
   computed, 
   CUSTOM_ELEMENTS_SCHEMA, 
   inject, 
-  signal, 
-  ViewEncapsulation
+  signal
 } from '@angular/core'
 
 import { NgxPaginationModule } from 'ngx-pagination'
+import { MatTooltipModule } from '@angular/material/tooltip'
 
 import { ProfileCardComponent } from '@lithium/components/profile-card'
 import { AvatarComponent } from '@lithium/components/avatar'
 import { PaginationComponent } from '@lithium/components/pagination'
+import { SectionBase, SortButtonComponent } from '@lithium/pages/powersearch/common/components'
 
 import { SearchPeopleService } from './people.service'
-import { SortButtonComponent } from './sort-button.component'
 import { ImageAlt } from './avatar-alt.pipe'
-import { SectionBase } from '../section-base'
 
 import type { ProfileCardValue } from '@lithium/components/types'
-import type { SortState, ButtonOutputValue } from './types'
+import type { SortState, ButtonOutputValue } from '@lithium/pages/powersearch/common/types'
 
 @Component({
   selector: 'search-people',
@@ -32,14 +31,14 @@ import type { SortState, ButtonOutputValue } from './types'
     ImageAlt, 
     AvatarComponent,
     PaginationComponent,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatTooltipModule
   ],
   providers: [ SearchPeopleService ],
-  encapsulation: ViewEncapsulation.ShadowDom,
   template: `
-    <li-card class="people" part="people">
-      <li-header>
-        <div part="header-title">People</div>
+    <li-card class="search-people">
+      <li-header class="search-people--header">
+        <div class="title">People</div>
         <div class="sort-header">
           <sort-button name="date" exportparts="button:sort-button,arrow,span" 
             [active]="sort() === 'date'" 
@@ -55,7 +54,10 @@ import type { SortState, ButtonOutputValue } from './types'
           @for (person of people() | paginate: paginateArgs(); track person.nbkId) {
             <profile-card reverse
               exportparts="card:profile-card,name,title,role,ellipsis" 
-              [value]="person"
+              [value]="person"        
+              [matTooltipPosition]="'before'"
+              [matTooltipClass]="'search-tooltip'"
+              [matTooltip]="tooltip(person)"
               (onClick)="onRedirect()">
               <avatar base64 [src]="person.image!" [alt]="person.name! | imgAlt" />
             </profile-card>
@@ -82,5 +84,9 @@ export class SearchPeopleComponent extends SectionBase {
 
   onSort(value: ButtonOutputValue) {
     this.sort.set(value.name)
+  }
+
+  tooltip(person: ProfileCardValue) {
+    return `${person.name}\n${person.title}\n${person.role ?? ''}`
   }
 }

@@ -5,7 +5,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop'
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators'
 import { of } from 'rxjs/internal/observable/of'
 
-import type { SearchParams, SearchResult } from './types'
+import type { SearchParams, SearchResult } from '../types'
 
 export class SearchBaseService {
   #url: string

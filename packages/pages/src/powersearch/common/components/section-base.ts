@@ -5,18 +5,18 @@ import {
   ElementRef, 
   inject, 
   input, 
+  model, 
   OnDestroy, 
-  OnInit, 
-  signal 
+  OnInit
 } from '@angular/core'
 import { toObservable } from '@angular/core/rxjs-interop'
 import { PaginatePipeArgs } from 'ngx-pagination'
 import { Subscription } from 'rxjs/internal/Subscription'
 
-import { SearchBaseService } from './search-base.service'
+import { SearchBaseService } from '../services/search-base.service'
 
 import type { PaginateArgs } from '@lithium/components/pagination/types'
-import type { SearchParams } from './types'
+import type { SearchParams } from '../types'
 
 @Component({ template: '' })
 export class SectionBase implements OnInit, OnDestroy {
@@ -24,18 +24,28 @@ export class SectionBase implements OnInit, OnDestroy {
   readonly #subscriptions: Subscription[] = []
 
   #effect = effect(() => {
-    if (!this.searchText()) return
-    this.#updateParams({ searchText: this.searchText() })
+    const text = this.searchText()
+    if (!text) return
+    if (text === this.service.params().searchText) return
+    this.#updateParams({ searchText: text })
+  })
+
+  #itemsPerPageEffect = effect(() => {
+    const itemsPerPage = Number(this.itemsPerPage())
+    if (itemsPerPage < 1) return
+    if (itemsPerPage === this.paginateArgs().itemsPerPage) return
+    this.#updatePaginateArgs({ itemsPerPage })
   })
 
   protected service!: SearchBaseService
     
-  searchText = input('')
+  searchText = input.required<string>()
+  itemsPerPage = input<string | number>(3)
 
-  paginateArgs = signal<PaginatePipeArgs & PaginateArgs>({
-    itemsPerPage: 2,
+  paginateArgs = model<PaginatePipeArgs & PaginateArgs>({
+    itemsPerPage: 3,
     currentPage: 1,
-    maxSize: 10,
+    maxSize: 7,
     totalItems: 0
   })
 
@@ -64,6 +74,7 @@ export class SectionBase implements OnInit, OnDestroy {
   
   ngOnDestroy() {
     this.#effect.destroy()
+    this.#itemsPerPageEffect.destroy()
     this.#subscriptions.forEach(dispose => dispose.unsubscribe())
   }
 

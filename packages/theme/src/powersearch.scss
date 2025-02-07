@@ -1,34 +1,77 @@
 @use './_theme.scss' as theme;
 
+@mixin tooltip {
+  .search-tooltip {
+    color: var(--primary-white) !important;
+    background-color: #616161 !important;
+    border-radius: 4px !important;
+    font-size: 10px !important;
+    font-family: var(--font-family);
+    white-space: pre-line;
+    text-align: left !important;
+  }
+}
+
 @include theme.dark {
-  search-people {
-    --search-people-header-title: var(--primary-white);
-    --sort-button-color: var(--primary-white);
-    --search-people-sort-header-divider: var(--primary-white);
-    --pagination-current-border-bottom: var(--secondary-yellow);
-    --pagination-chevron-border-color: var(--secondary-yellow);
-    --pagination-number-color: var(--primary-white);
-    --pagination-hover-bg-color: #cacaca;
+  @include tooltip();
 
-    &::part(people) {
-      --card-bg-color: #141414;
-      --card-box-shadow: 0 0px 10px #000;
+  .search-people,
+  .search-pages {
+    --card-bg-color: #141414;
+    --card-box-shadow: 0 0px 10px #000;
+
+    &--header {
+      .title {
+        color: var(--primary-white) !important;
+      }
+
+      .sort-header {
+        sort-button {
+          --button-text-color: var(--secondary-yellow);
+          --sort-button-color: var(--primary-white);
+        }
+
+        &--divider {
+          color: var(--primary-white) !important;
+        }
+      }
     }
+  }
 
-    &::part(profile-card) {
-      --card-border-color: #2e2e31;  
+  .search-people,
+  .search-pages {
+    pagination {
+      --pagination-current-border-bottom: var(--secondary-yellow);
+      --pagination-chevron-border-color: var(--secondary-yellow);
+      --pagination-number-color: var(--primary-white);
+      --pagination-hover-bg-color: #cacaca;
     }
+  }
 
-    &::part(name), &::part(role) {
-      color: var(--primary-white);
+  .search-pages {
+    .page-card {
+      --card-border-color: #2e2e31;
+
+      li-content {
+        &::part(content) {
+          color: var(--primary-white);
+        }
+      }
+
+      .content--title {
+        --page-card-divider-color: #2e2e31;
+      }
     }
+  }
 
-    &::part(name) {
-      font-size: 20px;
-    }
+  .search-people {
+    profile-card {
+      --card-border-color: #2e2e31;
+      --profile-card-cursor: pointer;
 
-    &::part(sort-button) {
-      --button-text-color: var(--secondary-yellow);
+      &::part(name), &::part(role) {
+        color: var(--primary-white);
+      }
     }
   }
 }
@@ -37,30 +80,59 @@
   --border-blue-color: #2199e8;
   --border-card-color: #ededed;
 
-  search-people {
-    --search-people-sort-header-divider: var(--secondary-light-grey);
-    --search-people-card-border-color: var(--border-card-color);
-    --pagination-current-border-bottom: var(--border-blue-color);
-    --pagination-chevron-border-color: var(--border-blue-color);
-    --pagination-hover-bg-color: #cacaca;
+  @include tooltip();
 
-    &::part(people) {
-      --card-bg-color: var(--primary-white);    
-      --card-box-shadow: 0 1px 5px #dce7f6;
+  .search-people,
+  .search-pages {
+    --card-bg-color: var(--primary-white);    
+    --card-box-shadow: 0 1px 5px #dce7f6;
+
+    &--header {
+      .title {
+        color: #000 !important;
+      }
+
+      .sort-header {
+        sort-button {
+          --button-text-color: var(--primary-bright-blue);
+          --button-hover-bg-color: #f5f5f5;
+        }
+
+        &--divider {
+          color: var(--secondary-light-grey) !important;
+        }
+      }
     }
+  }
 
-    &::part(sort-button) {
-      --button-text-color: var(--primary-bright-blue);
-      --button-hover-bg-color: #f5f5f5;
+  .search-people,
+  .search-pages {
+    pagination {
+      --pagination-current-border-bottom: var(--border-blue-color);
+      --pagination-chevron-border-color: var(--border-blue-color);
+      --pagination-hover-bg-color: #cacaca;
     }
+  }
 
-    &::part(profile-card) {
+  .search-people {
+    profile-card {
       --card-border-color:  var(--border-card-color);
-    }
+      --profile-card-cursor: pointer;
 
-    &::part(name) {
-      --profile-card-name-color: var(--primary-bright-blue);
-      --profile-card-name-font-size: 20px;
+      &::part(name) {
+        --profile-card-name-color: var(--primary-bright-blue);
+        --profile-card-name-font-size: 20px;
+      }
+    }
+  }
+
+  .search-pages {
+    .page-card {
+      --card-border-color: var(--border-card-color);
+
+      .content--title {
+        --page-card-divider-color: var(--border-card-color);
+      }
     }
   }
 }

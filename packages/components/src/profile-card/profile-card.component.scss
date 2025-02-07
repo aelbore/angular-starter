@@ -1,5 +1,6 @@
 :host {
   font-family: va(--font-family);
+  cursor: var(--profile-card-cursor);
 
   .profile-card {
     --card-radius: 0;
@@ -37,6 +38,8 @@
       display: grid;
 
       label {
+        cursor: inherit;
+
         &[for=name] {
           font-size: var(--profile-card-name-font-size, 16px);
           color: var(--profile-card-name-color);
