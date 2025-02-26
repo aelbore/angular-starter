@@ -14,7 +14,9 @@ export class SearchBaseService implements SearchService  {
   protected url!: string
 
   params = signal<SearchParams>({})
-  paginateArgs = signal<PaginatePipeArgs & PaginateArgs>({})
+  paginateArgs = signal<PaginatePipeArgs & PaginateArgs>({
+    itemsPerPage: 5, currentPage: 1, maxSize: 7, totalItems: 0
+  })
 
   result = toSignal(
     toObservable(this.params)
@@ -48,10 +50,7 @@ export class SearchBaseService implements SearchService  {
   }
 
   updatePaginateArgs(args: PaginatePipeArgs & PaginateArgs) {
-    const { itemsPerPage = 5, currentPage = 1, maxSize = 7, totalItems = 0 } = args 
-    this.paginateArgs.update(current => ({ 
-      ...current, itemsPerPage, currentPage, maxSize, totalItems
-    }))
+    this.paginateArgs.update(current => ({ ...current, ...args }))
   }
 
   updateCurrentPage(currentPage: number) {

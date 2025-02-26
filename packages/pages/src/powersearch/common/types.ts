@@ -1,5 +1,7 @@
 import { InputSignal, OnDestroy, OnInit, Signal } from '@angular/core'
 import { SearchBaseService } from './services'
+import { PaginatePipeArgs } from 'ngx-pagination'
+import { PaginateArgs } from '@lithium/components/pagination/types'
 
 export type SearchParams = {
   searchText?: string
@@ -32,6 +34,8 @@ export type SortState = 'PublishedDate' | 'Title'
 export interface SearchService {
   updateParams: (value: SearchParams) => void
   result:  Signal<SearchResult | undefined>
+  paginateArgs: Signal<PaginatePipeArgs & PaginateArgs>
+  updateCurrentPage: (currentPage: number) => void
 }
 
 export interface SearchSortByService {
@@ -44,4 +48,4 @@ export interface SectionInput extends OnDestroy, OnInit {
   itemsPerPage: InputSignal<string | number>
 }
 
-export type SectionType = 'pages' | 'people' | 'media'
+export type SectionName = 'pages' | 'people' | 'media'

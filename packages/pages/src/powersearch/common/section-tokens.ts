@@ -1,5 +1,5 @@
 import { inject, InjectionToken, Injector, ProviderToken, runInInjectionContext } from '@angular/core'
-import { SearchService, SectionType } from './types'
+import { SearchService, SectionName } from './types'
 
 /**
  * Why we use sectionTokens type of Map?
@@ -10,20 +10,20 @@ import { SearchService, SectionType } from './types'
 const sectionTokens: Map<string, InjectionToken<SearchService>> = new Map()
 
 export const addSectionToken = <T extends SearchService>(
-  type: SectionType,
+  name: SectionName,
   service: ProviderToken<T>
 ) => {
-  const TOKEN = new InjectionToken(type, {
+  const TOKEN = new InjectionToken(name, {
     providedIn: 'root',
     factory: () => inject(service)
   })
-  sectionTokens.set(type, TOKEN)
+  sectionTokens.set(name, TOKEN)
 }
 
-export const getSectionToken = (type: SectionType) => {
-  return sectionTokens.get(type) as InjectionToken<SearchService>
+export const getSectionToken = (name: SectionName) => {
+  return sectionTokens.get(name) as InjectionToken<SearchService>
 }
 
-export const getSectionService = (type: SectionType, injector: Injector) => {
-  return runInInjectionContext(injector, () => injector.get(getSectionToken(type)))
+export const getSectionService = (name: SectionName, injector: Injector) => {
+  return runInInjectionContext(injector, () => injector.get(getSectionToken(name)))
 }

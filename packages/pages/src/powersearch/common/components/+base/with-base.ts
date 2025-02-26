@@ -2,8 +2,8 @@ import { computed, ElementRef, inject } from '@angular/core'
 import { toObservable } from '@angular/core/rxjs-interop'
 
 import { Subscription } from 'rxjs/internal/Subscription'
-
 import { Constructor } from '@lithium/pages/powersearch/common/constructor'
+
 import type { SectionInput } from '@lithium/pages/powersearch/common/types'
 
 export const withBaseSection = <T extends Constructor<SectionInput>>(BaseComponent: T) => {
@@ -12,9 +12,8 @@ export const withBaseSection = <T extends Constructor<SectionInput>>(BaseCompone
     readonly #subscriptions: Subscription[] = []
 
     results = computed(() => this.service.result()?.results ?? [])
-    totalCount = computed(() => this.service.result()?.totalCount ?? 0)
-    paginateArgs = computed(() => this.service.paginateArgs())
-  
+    totalCount = computed(() => this.service.totalCount())
+
     totalCount$ = toObservable(this.totalCount)
     results$ = toObservable(this.results)
 
@@ -36,10 +35,6 @@ export const withBaseSection = <T extends Constructor<SectionInput>>(BaseCompone
     override ngOnDestroy() {
       super.ngOnDestroy()
       this.#subscriptions.forEach(dispose => dispose.unsubscribe())
-    }
-
-    onPageChange(currentPage: number) {
-      this.service.updateCurrentPage(currentPage)
     }
   }
 }

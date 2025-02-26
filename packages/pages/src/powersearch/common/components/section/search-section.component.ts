@@ -6,19 +6,17 @@ import {
   CUSTOM_ELEMENTS_SCHEMA, 
   HostAttributeToken, 
   inject, 
-  Injector, 
-  input, 
-  output, 
+  Injector,
+  runInInjectionContext,
   TemplateRef 
 } from '@angular/core'
 import { NgTemplateOutlet } from '@angular/common'
 
-import { NgxPaginationModule, type PaginatePipeArgs } from 'ngx-pagination'
+import { NgxPaginationModule } from 'ngx-pagination'
 import { PaginationComponent } from '@lithium/components/pagination'
 import { getSectionService } from '@lithium/pages/powersearch/common/section-tokens'
 
-import type { PaginateArgs } from '@lithium/components/pagination/types'
-import type { SectionType } from '@lithium/pages/powersearch/common/types'
+import type { SectionName } from '@lithium/pages/powersearch/common/types'
 
 @Component({
   selector: 'search-section',
@@ -31,7 +29,7 @@ import type { SectionType } from '@lithium/pages/powersearch/common/types'
         <ng-content select="header"></ng-content>
       </li-header>
       <li-content>
-        <section class="content">
+        <section>
           @for (item of results()! | paginate: paginateArgs()!; track item) {
             <ng-container 
               [ngTemplateOutlet]="outlet()!" 
@@ -43,7 +41,7 @@ import type { SectionType } from '@lithium/pages/powersearch/common/types'
       <li-footer>
         <pagination 
           [paginateArgs]="paginateArgs()" 
-          (pageChange)="onPageChanged.emit($event)" />        
+          (pageChange)="onPageChanged($event)" />
       </li-footer>
     </li-card>
   `,
@@ -54,15 +52,15 @@ export class SearchSectionComponent {
   readonly injector = inject(Injector)
   readonly outlet = contentChild(TemplateRef)
 
-  type = inject(new HostAttributeToken('type'))
-  
-  paginateArgs = input<PaginatePipeArgs & PaginateArgs>()
-  onPageChanged = output<number>()
+  section = runInInjectionContext(this.injector, () => {
+    const name = inject(new HostAttributeToken('name')) as SectionName
+    return getSectionService(name, this.injector)
+  })
 
-  results = computed(() => this.section?.result()?.results ?? [])
+  paginateArgs = computed(() => this.section.paginateArgs())
+  results = computed(() => this.section.result()?.results ?? [])
 
-  get section() {
-    const type = this.type as SectionType
-    return getSectionService(type, this.injector)
+  onPageChanged(currentPage: number) {
+    this.section.updateCurrentPage(currentPage)
   }
 }

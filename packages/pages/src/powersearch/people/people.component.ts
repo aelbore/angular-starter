@@ -21,9 +21,7 @@ import { PeopleSection } from './people-section'
     SearchSectionComponent
   ],
   template: `
-    <search-section type="people"
-      [paginateArgs]="paginateArgs()" 
-      (onPageChanged)="onPageChange($event)">
+    <search-section name="people">
       <header>
         <div class="title">People</div>
         <sort-buttons class="sort-header" 

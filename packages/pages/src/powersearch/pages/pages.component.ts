@@ -22,9 +22,7 @@ import { PagesSection } from './pages-section'
     SortButtonsComponent
   ],
   template: ` 
-    <search-section type="pages"
-      [paginateArgs]="paginateArgs()" 
-      (onPageChanged)="onPageChange($event)">
+    <search-section name="pages">
       <header>
         <div class="title">Pages</div>
         <sort-buttons class="sort-header" 
