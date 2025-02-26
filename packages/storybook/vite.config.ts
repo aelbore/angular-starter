@@ -15,7 +15,7 @@ export default mergeConfig(
     optimizeDeps: {
       include: [
         '@storybook/angular',
-        '@storybook/angular/dist/client',
+        '@angular/angular/dist/client/docs/config.js',
         '@angular/compiler',
         '@storybook/blocks',
         'tslib'

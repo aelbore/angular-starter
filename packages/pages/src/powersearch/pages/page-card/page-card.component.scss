@@ -9,7 +9,7 @@
     --card-min-height: auto;
     --card-height: auto;
     --card-border: 0;
-    --card-width: var(--profile-card-width, fit-content);
+    --card-width: auto;
     --card-bg-color: transparent;
     --checkbox-margin: 3px 0px 3px 1px;
     --card-box-shadow: none;
@@ -19,7 +19,7 @@
       display: grid;
       grid-template-columns: 1fr auto;
     }
-
+ 
     .content {
       .initiative {
         color: #780032;
@@ -48,8 +48,7 @@
         margin-top: 3px;
       }
 
-      &--title,
-      &--description {
+      &--title {
         @include styles.ellipsis();
       }
 

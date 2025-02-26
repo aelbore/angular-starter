@@ -1,4 +1,6 @@
 :host {
+  display: var(--pagination-display, grid);
+
   pagination-template {
     display: table;
     margin: auto;

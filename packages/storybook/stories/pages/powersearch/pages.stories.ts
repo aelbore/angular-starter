@@ -1,10 +1,4 @@
-import { 
-  type Meta, 
-  type StoryObj, 
-  argsToTemplate, 
-  defineDefaultArgs 
-} from '@lithium/storybook/utils'
-
+import { type Meta, type StoryObj, argsToTemplate, defineDefaultArgs } from '@lithium/storybook/utils'
 import { handlers } from './pages/pages-mock'
 
 import type { SearchParams } from '@lithium/pages/powersearch/common/types'
@@ -30,6 +24,6 @@ export const Pages: StoryObj<SearchParams> = {
   args: {
     searchText: 'banking',
     PageIndex: 1,
-    PageSize: 1
+    PageSize: 2
   }
 }

@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core'
 
-import { createUrl } from '../shared'
-import { SearchBaseService } from '@lithium/pages/powersearch/common/services'
+import { SearchBaseService, withSortByService } from '@lithium/pages/powersearch/common/services'
+import { createUrl } from '../common/shared'
+import { addSectionToken } from '../common/section-tokens'
 
-import type { SearchParams } from '@lithium/pages/powersearch/common/types'
-
-@Injectable()
-export class SearchPeopleService extends SearchBaseService  { 
-  constructor() {
-    super(createUrl('Bios'))
-  }
-
-  override getData<BiosSearchResult>(params: SearchParams) {
-    return super.getData<BiosSearchResult>(params)
-  }
+@Injectable({ providedIn: 'root' })
+export class SearchPeopleService 
+  extends withSortByService(SearchBaseService)  
+{ 
+  override url = createUrl('Bios')
 }
+
+addSectionToken('people', SearchPeopleService)

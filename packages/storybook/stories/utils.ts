@@ -1,8 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/angular'
-import type { NgModuleMetadata } from '@storybook/angular/dist/client/types'
 import type { Args } from '@storybook/types'
 
 import { moduleMetadata, argsToTemplate } from '@storybook/angular'
+
+type Parameters<Type extends (...args: any) => any> = Type extends (...args: infer Args) => any ? Args : never
+
+export type NgModuleMetadata = Parameters<typeof moduleMetadata>[0]
 
 export type StorybookTheme = 'dark' | 'light'
 

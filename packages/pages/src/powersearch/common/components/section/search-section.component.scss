@@ -1,0 +1,67 @@
+:host {
+  display: grid;
+  flex: 1;
+  flex-grow: 1;
+
+  li-card {
+    --card-min-height: auto;
+    --card-height: auto;
+    --card-border-radius: 10px;
+    --card-padding: 15px 20px;
+    
+    &::part(card) {
+      min-width: 255px;
+      max-width: 400px;
+    }
+
+    li-header {
+      --header-border-style: none;
+
+      &::ng-deep {
+        header {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+    
+          .title {
+            font-size: 20px;
+          }
+  
+          .sort-header {
+            display: inline-flex;
+            column-gap: 5px;
+  
+            &--divider {
+              align-self: center;
+            }
+          }
+        }
+      }
+    }
+
+    li-content {
+      --content-padding: 0;
+
+      section {
+        display: grid;
+        row-gap: 20px;
+        padding-top: 10px;
+      }
+    }
+  
+    li-footer {
+      --footer-border-style: none;
+      --footer-align-items: center;
+    
+      &::part(footer) {
+        height: auto;
+        padding: 20px 0px 5px;
+      }
+    }
+  }
+}
+
+:host([total-count="0"]) {
+  display: none;
+}

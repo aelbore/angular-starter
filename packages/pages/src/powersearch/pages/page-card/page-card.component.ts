@@ -1,10 +1,12 @@
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, input, output } from '@angular/core'
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, input, output, signal } from '@angular/core'
 
 import { SafeHtmlPipe } from '@lithium/pages/powersearch/common/pipes'
 import { TooltipDirective } from '@lithium/pages/powersearch/common/directives'
 
-import type { PageValue } from '../types'
 import { StripTextPipe } from './type-strip-text.pipe'
+import { KeywordHighlight } from './page-card.directive'
+
+import type { PageValue } from '../types'
 
 @Component({
   selector: 'page-card',
@@ -13,7 +15,8 @@ import { StripTextPipe } from './type-strip-text.pipe'
   imports: [ 
     SafeHtmlPipe, 
     StripTextPipe,
-    TooltipDirective 
+    TooltipDirective,
+    KeywordHighlight
   ],
   template: `
     <li-card (click)="onClick.emit(value()!)">
@@ -27,9 +30,10 @@ import { StripTextPipe } from './type-strip-text.pipe'
             [class]="'content--title'"             
             [tooltipPosition]="'before'"
             [tooltipClass]="'search-tooltip'"
-            [tooltip]="value().title">{{value().title}}</div>
+            [tooltip]="value().title!">{{value().title}}</div>
           <div 
-            class="content--description" 
+            [class]="'content--description'" 
+            [keywordHighlight]="value().keywords ?? keywords()"
             [innerHtml]="value().description! | safeHtml"></div>
         </section>
       </li-content>
@@ -37,10 +41,10 @@ import { StripTextPipe } from './type-strip-text.pipe'
   `,
   styleUrl: './page-card.component.scss'
 })
-export class PageCardComponent  { 
+export class PageCardComponent {
   value = input.required<PageValue>()
+  onClick = output<PageValue>()
 
   type = computed(() => (this.value()?.type ?? '').toLowerCase())
-
-  onClick = output<PageValue>()
+  keywords = signal<string[]>([ 'em' ])
 }

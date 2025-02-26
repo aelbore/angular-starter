@@ -112,7 +112,13 @@ export const vitestResolvePaths = (rootDir: string, options?: VitestResolvePaths
 
 
 export const elementPaths = (rootDir?: string) => {
-  const alias = viteAlias(rootDir)
+  const replaceText = (text: string) => {
+    return text.replace(join('packages', 'elements'), '')
+  }
+  const ROOT_DIR = rootDir ?? replaceText(
+    join(getRootDir(), hasRelativePath())
+  )
+  const alias = getElementsPaths(ROOT_DIR)
   return Object.keys(alias).reduce((p, c) => {
     p[c] = [ alias[c] ]
     return p

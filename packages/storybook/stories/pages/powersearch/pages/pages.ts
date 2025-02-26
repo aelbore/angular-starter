@@ -16,7 +16,7 @@ import type { SearchParams } from '@lithium/pages/powersearch/common/types'
     <search-pages 
       [searchText]="options().searchText!"
       [itemsPerPage]="options().PageSize!">
-      <ng-template let-page=>
+      <ng-template let-page>
         <i class="heart"></i>
       </ng-template>
     </search-pages>

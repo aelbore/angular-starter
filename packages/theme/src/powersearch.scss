@@ -15,40 +15,27 @@
 @include theme.dark {
   @include tooltip();
 
-  .search-people,
-  .search-pages {
+  search-section {
     --card-bg-color: #141414;
     --card-box-shadow: 0 0px 10px #000;
 
-    &--header {
+    header {
       .title {
-        color: var(--primary-white) !important;
+        color: var(--primary-white);
       }
 
-      .sort-header {
+      .sort-header {    
         sort-button {
           --button-text-color: var(--secondary-yellow);
           --sort-button-color: var(--primary-white);
         }
-
+        
         &--divider {
-          color: var(--primary-white) !important;
+          color: var(--primary-white);
         }
       }
     }
-  }
 
-  .search-people,
-  .search-pages {
-    pagination {
-      --pagination-current-border-bottom: var(--secondary-yellow);
-      --pagination-chevron-border-color: var(--secondary-yellow);
-      --pagination-number-color: var(--primary-white);
-      --pagination-hover-bg-color: #cacaca;
-    }
-  }
-
-  .search-pages {
     .page-card {
       --card-border-color: #2e2e31;
 
@@ -62,10 +49,8 @@
         --page-card-divider-color: #2e2e31;
       }
     }
-  }
 
-  .search-people {
-    profile-card {
+    .people-profile-card {
       --card-border-color: #2e2e31;
       --profile-card-cursor: pointer;
 
@@ -73,23 +58,30 @@
         color: var(--primary-white);
       }
     }
+
+    li-footer {
+      pagination {
+        --pagination-current-border-bottom: var(--secondary-yellow);
+        --pagination-chevron-border-color: var(--secondary-yellow);
+        --pagination-number-color: var(--primary-white);
+        --pagination-hover-bg-color: #cacaca;
+      }
+    }
   }
 }
 
 @include theme.light {
-  --border-blue-color: #2199e8;
-  --border-card-color: #ededed;
-
   @include tooltip();
 
-  .search-people,
-  .search-pages {
+  search-section {
     --card-bg-color: var(--primary-white);    
     --card-box-shadow: 0 1px 5px #dce7f6;
+    --border-blue-color: #2199e8;
+    --border-card-color: #ededed;
 
-    &--header {
+    header {
       .title {
-        color: #000 !important;
+        color: #000;
       }
 
       .sort-header {
@@ -99,39 +91,24 @@
         }
 
         &--divider {
-          color: var(--secondary-light-grey) !important;
+          color: var(--secondary-light-grey);
         }
       }
     }
-  }
 
-  .search-people,
-  .search-pages {
-    pagination {
-      --pagination-current-border-bottom: var(--border-blue-color);
-      --pagination-chevron-border-color: var(--border-blue-color);
-      --pagination-hover-bg-color: #cacaca;
-    }
-  }
-
-  .search-people {
-    profile-card {
-      --card-border-color:  var(--border-card-color);
-      --profile-card-cursor: pointer;
-
-      &::part(name) {
-        --profile-card-name-color: var(--primary-bright-blue);
-        --profile-card-name-font-size: 20px;
-      }
-    }
-  }
-
-  .search-pages {
     .page-card {
       --card-border-color: var(--border-card-color);
 
       .content--title {
         --page-card-divider-color: var(--border-card-color);
+      }
+    }
+
+    li-footer {
+      pagination {
+        --pagination-current-border-bottom: var(--border-blue-color);
+        --pagination-chevron-border-color: var(--border-blue-color);
+        --pagination-hover-bg-color: #cacaca;
       }
     }
   }

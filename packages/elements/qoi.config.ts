@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { createFilter, defineConfig } from 'qoi-cli'
 
 import { InlineElementPlugin } from '../tools/src/ts-plugin'
-import { elementPaths, getParentDir } from '../tools/src/utils'
+import { elementPaths } from '../tools/src/utils'
 
 export default defineConfig({
   input: './src/index.ts',
@@ -23,13 +23,13 @@ export default defineConfig({
     createFilter() {
       const filter = createFilter()
       return ({
-        cssFilter: (id) => filter?.cssFilter?.(id, { 
+        cssFilter: (id: string) => filter?.cssFilter?.(id, { 
           include: join(__dirname, './src/**/*.scss')
         }) ?? false
       })
     },
     jsc: {
-      paths: elementPaths(getParentDir('packages/elements'))
+      paths: elementPaths()
     }
   }
 })

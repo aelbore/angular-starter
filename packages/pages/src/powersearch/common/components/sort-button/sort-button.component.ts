@@ -1,17 +1,13 @@
 import { 
   Component, 
   CUSTOM_ELEMENTS_SCHEMA, 
-  signal, 
   output, 
   input, 
-  ViewEncapsulation 
+  ViewEncapsulation, 
+  computed
 } from '@angular/core'
 
-import type { 
-  ArrowState, 
-  ButtonOutputValue, 
-  SortState 
-} from '@lithium/pages/powersearch/common/types'
+import type { SortParams, SortState } from '@lithium/pages/powersearch/common/types'
 
 @Component({
   selector: 'sort-button',
@@ -39,16 +35,17 @@ import type {
   styleUrl: './sort-button.component.scss'
 })
 export class SortButtonComponent { 
-  state = signal<ArrowState>('down')
-
-  active = input<boolean>(false)
   name = input<SortState>()
-  onSort = output<ButtonOutputValue>()
+  state = input<SortParams>({ arrow: 'down' })
 
+  onSort = output<SortParams>()
+
+  active = computed(() => this.state().name === this.name())
+  
   onSortClick() {
-    if (this.state() === 'down') this.state.set('up')
-    else this.state.set('down')
-
-    this.onSort.emit({ state: this.state(), name: this.name()! })
+    this.onSort.emit({ 
+      arrow: this.state().arrow,
+      name: this.name()! 
+    })
   }
 }

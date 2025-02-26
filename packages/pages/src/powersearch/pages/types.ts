@@ -5,6 +5,7 @@ export type PageValue = {
   type?: string
   title?: string
   description?: string
+  keywords?: string | string[]
 }
 
 export type PagesSearchResult = Omit<SearchResult, 'results'> & {

@@ -5,22 +5,16 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop'
 import { catchError, debounceTime, map, switchMap } from 'rxjs/operators'
 import { of } from 'rxjs/internal/observable/of'
 
-import type { SearchParams, SearchResult } from '../types'
+import type { PaginatePipeArgs } from 'ngx-pagination'
+import type { PaginateArgs } from '@lithium/components/pagination/types'
+import type { SearchParams, SearchResult, SearchService } from '../types'
 
-export class SearchBaseService {
-  #url: string
-  
+export class SearchBaseService implements SearchService  {  
   protected http = inject(HttpClient)
+  protected url!: string
 
-  constructor(url: string) {
-    this.#url = url
-  }
-
-  params = signal<SearchParams>({
-    searchText: '',
-    PageIndex: 1,
-    PageSize: 10
-  })
+  params = signal<SearchParams>({})
+  paginateArgs = signal<PaginatePipeArgs & PaginateArgs>({})
 
   result = toSignal(
     toObservable(this.params)
@@ -34,15 +28,39 @@ export class SearchBaseService {
       )
   ) 
 
-  totalCount = computed(() => this.result()?.totalCount)
+  totalCount = computed(() => this.result()?.totalCount ?? 0)
 
   getData<TResult>(params: SearchParams) {
+    const { PageIndex = 1, PageSize = 10, searchText = ''  } = params
     return this.http.get<TResult>(
-      this.#url, { params, observe: 'response' }
+      this.url, { 
+        params: { searchText, PageIndex, PageSize }, 
+        observe: 'response' 
+      }
     ).pipe(
       map(response => response.body as TResult),
       catchError(error => of<TResult>(error))
     )
   }
 
+  updateParams(value: SearchParams) {
+    this.params.update(params => ({ ...params, ...value }))
+  }
+
+  updatePaginateArgs(args: PaginatePipeArgs & PaginateArgs) {
+    const { itemsPerPage = 5, currentPage = 1, maxSize = 7, totalItems = 0 } = args 
+    this.paginateArgs.update(current => ({ 
+      ...current, itemsPerPage, currentPage, maxSize, totalItems
+    }))
+  }
+
+  updateCurrentPage(currentPage: number) {
+    this.updatePaginateArgs({ currentPage })
+    this.updateParams({ PageIndex: currentPage })
+  }
+
+  updatePageItems(itemsPerPage: number) {
+    this.updatePaginateArgs({ itemsPerPage })
+    this.updateParams({ PageSize: itemsPerPage })
+  }
 }
