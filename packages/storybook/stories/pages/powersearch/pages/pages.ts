@@ -6,7 +6,7 @@ import '@lithium/elements/button'
 
 import { Component, input, OnInit, viewChild } from '@angular/core'
 import { SearchPagesComponent as SearchPages } from '@lithium/pages/powersearch'
-import type { SearchParams } from '@lithium/pages/powersearch/common/types'
+import type { SearchParams } from '@lithium/pages/common/types'
 
 @Component({
   selector: 'sb-search-pages',

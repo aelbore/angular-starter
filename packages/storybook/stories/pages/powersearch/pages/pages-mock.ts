@@ -1,4 +1,4 @@
-import { createUrl } from '@lithium/pages/powersearch'
+import { createUrl } from '@lithium/pages/common'
 import { PagesSearchResult } from '@lithium/pages/powersearch/pages/types'
 import { http, HttpResponse } from 'msw'
 

@@ -1,4 +1,5 @@
 import '@lithium/theme'
+import 'zone.js'
 
 import { type Preview, applicationConfig } from '@storybook/angular'
 import { provideHttpClient } from '@angular/common/http'

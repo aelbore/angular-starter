@@ -15,10 +15,10 @@
   "author": "Arjay Elbore <aelbore.sg@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@vitest/coverage-v8": "3.0.7",
-    "@vitest/ui": "^3.0.7",
-    "happy-dom": "17.1.8",
+    "@vitest/coverage-v8": "3.0.9",
+    "@vitest/ui": "^3.0.9",
+    "happy-dom": "17.4.4",
     "jsdom": "^26.0.0",
-    "vitest": "^3.0.7"
+    "vitest": "^3.0.9"
   }
 }

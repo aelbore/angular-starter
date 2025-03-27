@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "storybook": "storybook dev -p 8080 -c ./src --no-open"
+    "storybook": "storybook dev -p 8080 -c ./src --no-open",
+    "postinstall": "npm run patch",
+    "patch": "qoi-cli tools/storybook-patch.ts"
   },
   "keywords": [
     "storybook",
@@ -15,19 +17,19 @@
   "author": "Arjay Elbore <aelbore.sg@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@storybook/addon-essentials": "8.5.8",
-    "@storybook/addon-interactions": "8.5.8",
-    "@storybook/addon-links": "8.5.8",
-    "@storybook/addon-a11y": "8.5.8",
-    "@storybook/angular": "8.5.8",
-    "@storybook/blocks": "8.5.8",
-    "@storybook/builder-vite": "8.5.8",
-    "@storybook/test": "8.5.8",
-    "@storybook/types": "8.5.8",
+    "@storybook/addon-essentials": "8.6.10",
+    "@storybook/addon-interactions": "8.6.10",
+    "@storybook/addon-links": "8.6.10",
+    "@storybook/addon-a11y": "8.6.10",
+    "@storybook/angular": "8.6.10",
+    "@storybook/blocks": "8.6.10",
+    "@storybook/builder-vite": "8.6.10",
+    "@storybook/test": "8.6.10",
+    "@storybook/types": "8.6.10",
     "http-proxy-middleware": "^3.0.3",
     "msw-storybook-addon": "^2.0.4",
     "msw": "^2.7.3",
-    "storybook": "8.5.8"
+    "storybook": "8.6.10"
   },
   "msw": {
     "workerDirectory": [

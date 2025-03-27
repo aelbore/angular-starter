@@ -1,20 +1,18 @@
 /// <reference types="vitest" />
 
 import { defineConfig, mergeConfig } from 'vitest/config'
-import { getParentDir, vitestResolvePaths, } from '../tools/src/utils'
 import { ViteInlineElementPlugin as VitePlugin } from '../tools/src/ts-plugin'
 
-import baseConfig from '../tools/vite.config'
-
-const resolveAlias = () => vitestResolvePaths(
-  getParentDir('packages/tests'), { excludes: [ '@lithium/elements' ] }
-)
+import { defaultConfig, getParentDir, viteResolvePaths } from 'toolsetx'
 
 export default mergeConfig(
-  baseConfig, 
+  defaultConfig, 
   defineConfig({
     resolve: {
-      alias: resolveAlias()
+      alias: viteResolvePaths({
+        rootDir: getParentDir('packages/tests'),
+        paths: { excludes: [ '@lithium/elements' ] }
+      })
     },
     plugins: [ 
       VitePlugin({

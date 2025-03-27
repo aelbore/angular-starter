@@ -2,11 +2,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core'
 
 import { ProfileCardComponent } from '@lithium/components/profile-card'
 import { AvatarComponent } from '@lithium/components/avatar'
-import { SearchSectionComponent, SortButtonsComponent } from '@lithium/pages/powersearch/common/components'
-import { TooltipDirective } from '@lithium/pages/powersearch/common/directives'
+import { TooltipDirective, PageSectionComponent, SortButtonsModule } from '@lithium/pages/common'
 
 import { ImageAlt } from './avatar-alt.pipe'
-
 import { PeopleSection } from './people-section'
 
 @Component({
@@ -14,14 +12,14 @@ import { PeopleSection } from './people-section'
   standalone: true,
   imports: [ 
     ProfileCardComponent, 
-    SortButtonsComponent, 
+    SortButtonsModule, 
     ImageAlt, 
     AvatarComponent,
     TooltipDirective,
-    SearchSectionComponent
+    PageSectionComponent
   ],
   template: `
-    <search-section name="people">
+    <page-section name="search-people">
       <header>
         <div class="title">People</div>
         <sort-buttons class="sort-header" 
@@ -31,17 +29,17 @@ import { PeopleSection } from './people-section'
       </header>
       <ng-template let-item>
         <profile-card reverse
-            class="people-profile-card"
-            exportparts="card:profile-card,name,title,role,ellipsis" 
-            [value]="item"        
-            [tooltipPosition]="'left'"
-            [tooltipClass]="'search-tooltip'"
-            [tooltip]="tooltip(item)"
-            (onClick)="onRedirect()">
-            <avatar base64 [src]="item.image!" [alt]="item.name! | imgAlt" />
-          </profile-card>
+          class="people-profile-card"
+          exportparts="card:profile-card,name,title,role,ellipsis" 
+          [value]="item"        
+          [tooltipPosition]="'left'"
+          [tooltipClass]="'search-tooltip'"
+          [tooltip]="tooltip(item)"
+          (onClick)="onRedirect()">
+          <avatar base64 [src]="item.image!" [alt]="item.name! | imgAlt" />
+        </profile-card>
       </ng-template>
-    </search-section>
+    </page-section>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './people.component.scss'

@@ -1,4 +1,4 @@
-import { createUrl } from '@lithium/pages/powersearch'
+import { createUrl } from '@lithium/pages/common'
 import { BiosSearchResult } from '@lithium/pages/powersearch/people/types'
 import { http, HttpHandler, HttpResponse } from 'msw'
 

@@ -1,7 +1,5 @@
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, input, output, signal } from '@angular/core'
-
-import { SafeHtmlPipe } from '@lithium/pages/powersearch/common/pipes'
-import { TooltipDirective } from '@lithium/pages/powersearch/common/directives'
+import { TooltipDirective, SafeHtmlPipe } from '@lithium/pages/common'
 
 import { StripTextPipe } from './type-strip-text.pipe'
 import { KeywordHighlight } from './page-card.directive'

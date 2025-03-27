@@ -2,7 +2,7 @@ import { join } from 'node:path'
 import { createFilter, defineConfig } from 'qoi-cli'
 
 import { InlineElementPlugin } from '../tools/src/ts-plugin'
-import { elementPaths } from '../tools/src/utils'
+import { elementPaths } from 'toolsetx/alias'
 
 export default defineConfig({
   input: './src/index.ts',

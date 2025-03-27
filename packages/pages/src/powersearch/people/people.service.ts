@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core'
-
-import { SearchBaseService, withSortByService } from '@lithium/pages/powersearch/common/services'
-import { createUrl } from '../common/shared'
-import { addSectionToken } from '../common/section-tokens'
+import { createUrl, SearchBaseService, withSortByService, addSectionToken } from '@lithium/pages/common'
 
 @Injectable({ providedIn: 'root' })
 export class SearchPeopleService 
@@ -11,4 +8,4 @@ export class SearchPeopleService
   override url = createUrl('Bios')
 }
 
-addSectionToken('people', SearchPeopleService)
+addSectionToken('search-people', SearchPeopleService)

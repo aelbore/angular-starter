@@ -1,28 +1,27 @@
-import { defineConfig, mergeConfig, PluginOption } from 'vite'
+import { defineConfig, mergeConfig, type PluginOption } from 'vite'
 import { swcPlugin } from 'qoi-cli'
 
-import { getParentDir, vitestAlias } from '../tools/src/utils'
 import { ViteInlineElementPlugin as VitePlugin } from '../tools/src/ts-plugin'
 
 import { Angular, createFilter, Watcher } from './tools'
-
-import baseConfig from '../tools/vite.config'
+import { getParentDir, viteResolvePaths, defaultConfig } from 'toolsetx'
 
 export default mergeConfig(
-  baseConfig, 
+  defaultConfig, 
   defineConfig({
     logLevel: 'silent',
     optimizeDeps: {
       include: [
         '@storybook/angular',
-        '@angular/angular/dist/client/docs/config.js',
         '@angular/compiler',
         '@storybook/blocks',
-        'tslib'
+        'tslib' 
       ]
     },
     resolve: {
-      alias: vitestAlias(getParentDir('packages/storybook'))
+      alias: viteResolvePaths({
+        rootDir: getParentDir('packages/storybook')
+      })
     },
     plugins: [
       Watcher(),
@@ -38,6 +37,9 @@ export default mergeConfig(
         }
       }),
       swcPlugin() as PluginOption
-    ]
+    ],
+    define: {
+      STORYBOOK_ANGULAR_OPTIONS: JSON.stringify({ experimentalZoneless: false }) 
+    }
   })
 )

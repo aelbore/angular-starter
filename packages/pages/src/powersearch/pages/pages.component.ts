@@ -7,7 +7,7 @@ import {
 } from '@angular/core'
 import { NgTemplateOutlet } from '@angular/common'
 
-import { SearchSectionComponent, SortButtonsComponent } from '@lithium/pages/powersearch/common/components'
+import { PageSectionComponent, SortButtonsModule } from '@lithium/pages/common'
 
 import { PageCardComponent } from './page-card/page-card.component'
 import { PagesSection } from './pages-section'
@@ -16,13 +16,13 @@ import { PagesSection } from './pages-section'
   selector: 'search-pages',
   standalone: true,
   imports: [
-    PageCardComponent, 
+    PageCardComponent,
     NgTemplateOutlet,
-    SearchSectionComponent,
-    SortButtonsComponent
-  ],
+    SortButtonsModule,
+    PageSectionComponent
+],
   template: ` 
-    <search-section name="pages">
+    <page-section name="search-pages">
       <header>
         <div class="title">Pages</div>
         <sort-buttons class="sort-header" 
@@ -39,7 +39,7 @@ import { PagesSection } from './pages-section'
           />
         </page-card>
       </ng-template>
-    </search-section>
+    </page-section>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './pages.component.scss'
