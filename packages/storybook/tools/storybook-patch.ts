@@ -27,6 +27,8 @@ if (existsSync(storybookPkgFile)) {
     const keys = Object.keys(storybookPkg.exports)
     if (!keys.find(k => k === e)) {
       storybookPkg.exports = { ...storybookPkg.exports, [e]: exports$[e] }
+    } else {
+      console.log(`${e} is already exist.`)
     }
   })
 

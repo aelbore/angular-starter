@@ -1,7 +1,7 @@
 @use '../styles.scss' as styles;
 
 :host {
-  search-section {
+  page-section {
     --card-width: var(--search-people-width);
 
     profile-card {

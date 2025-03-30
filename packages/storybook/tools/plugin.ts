@@ -6,6 +6,7 @@ export const Angular = (filter?: import('qoi-cli').CreateFilter) => {
   return [
     angular({ 
       jit: true, 
+      liveReload: true,
       tsconfig: join(process.cwd(), 'tsconfig.json'),
       inlineStylesExtension: 'scss',
       transformFilter(_, id) {

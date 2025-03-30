@@ -24,7 +24,6 @@ export default mergeConfig(
       })
     },
     plugins: [
-      Watcher(),
       Angular(createFilter()),
       VitePlugin({
         element: {

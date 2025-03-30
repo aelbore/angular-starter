@@ -17,19 +17,19 @@
   "author": "Arjay Elbore <aelbore.sg@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@storybook/addon-essentials": "8.6.10",
-    "@storybook/addon-interactions": "8.6.10",
-    "@storybook/addon-links": "8.6.10",
-    "@storybook/addon-a11y": "8.6.10",
-    "@storybook/angular": "8.6.10",
-    "@storybook/blocks": "8.6.10",
-    "@storybook/builder-vite": "8.6.10",
-    "@storybook/test": "8.6.10",
-    "@storybook/types": "8.6.10",
+    "@storybook/addon-essentials": "8.6.11",
+    "@storybook/addon-interactions": "8.6.11",
+    "@storybook/addon-links": "8.6.11",
+    "@storybook/addon-a11y": "8.6.11",
+    "@storybook/angular": "8.6.11",
+    "@storybook/blocks": "8.6.11",
+    "@storybook/builder-vite": "8.6.11",
+    "@storybook/test": "8.6.11",
+    "@storybook/types": "8.6.11",
     "http-proxy-middleware": "^3.0.3",
     "msw-storybook-addon": "^2.0.4",
     "msw": "^2.7.3",
-    "storybook": "8.6.10"
+    "storybook": "8.6.11"
   },
   "msw": {
     "workerDirectory": [
