@@ -1,5 +1,6 @@
-import { inject, InjectionToken, Injector, ProviderToken, runInInjectionContext } from '@angular/core'
+import { HostAttributeToken, inject, InjectionToken, Injector, ProviderToken, runInInjectionContext } from '@angular/core'
 import { SearchService, SectionName } from '../types/types'
+import { assertInjector } from './injector'
 
 /**
  * Why we use sectionTokens type of Map?
@@ -20,10 +21,14 @@ export const addSectionToken = <T extends SearchService>(
   sectionTokens.set(name, TOKEN)
 }
 
-export const getSectionToken = (name: SectionName) => {
-  return sectionTokens.get(name) as InjectionToken<SearchService>
+export const getSectionToken = <T>(name: SectionName) => {
+  return sectionTokens.get(name) as InjectionToken<T>
 }
 
-export const getSectionService = (name: SectionName, injector: Injector) => {
-  return runInInjectionContext(injector, () => injector.get(getSectionToken(name)))
+export const getSectionService = <T>(injector?: Injector) => {
+  const injector$ = assertInjector(getSectionService, injector!)
+  return runInInjectionContext(injector$ , () => {
+    const name = inject(new HostAttributeToken('name')) as SectionName
+    return injector$.get(getSectionToken<T>(name)) as T
+  })
 }

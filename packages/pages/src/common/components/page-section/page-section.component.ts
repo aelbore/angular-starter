@@ -3,11 +3,9 @@ import {
   Component, 
   computed,  
   contentChild, 
-  CUSTOM_ELEMENTS_SCHEMA, 
-  HostAttributeToken, 
+  CUSTOM_ELEMENTS_SCHEMA,  
   inject, 
   Injector,
-  runInInjectionContext,
   TemplateRef 
 } from '@angular/core'
 import { NgTemplateOutlet } from '@angular/common'
@@ -15,8 +13,7 @@ import { NgTemplateOutlet } from '@angular/common'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { PaginationComponent } from '@lithium/components/pagination'
 import { getSectionService } from '@lithium/pages/common/core'
-
-import type { SectionName } from '@lithium/pages/common/core/types'
+import { SearchService } from '../../types'
 
 @Component({
   selector: 'page-section',
@@ -49,13 +46,8 @@ import type { SectionName } from '@lithium/pages/common/core/types'
   styleUrl: './page-section.component.scss'
 })
 export class PageSectionComponent {
-  readonly injector = inject(Injector)
-  readonly outlet = contentChild(TemplateRef)
-
-  section = runInInjectionContext(this.injector, () => {
-    const name = inject(new HostAttributeToken('name')) as SectionName
-    return getSectionService(name, this.injector)
-  })
+  protected readonly outlet = contentChild(TemplateRef)
+  protected readonly section = getSectionService<SearchService>()
 
   paginateArgs = computed(() => this.section.paginateArgs())
   results = computed(() => this.section.result()?.results ?? [])

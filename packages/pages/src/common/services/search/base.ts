@@ -1,10 +1,7 @@
-import { signal } from '@angular/core'
-import { toObservable, toSignal } from '@angular/core/rxjs-interop'
-
-import { debounceTime, switchMap } from 'rxjs/operators'
 import { of } from 'rxjs/internal/observable/of'
+import { map } from 'rxjs/internal/operators/map'
 
-import { withPaginationService, GetDataBaseService } from '../base'
+import { withPaginationService, GetDataBaseService, fetchResult } from '../base'
 
 import type { SearchParams, SearchResult, SearchService } from '@lithium/pages/common/types'
 
@@ -12,17 +9,20 @@ export class SearchBaseService
   extends withPaginationService(GetDataBaseService) 
   implements SearchService 
 {  
-  override params = signal<SearchParams>({ PageIndex: 1, PageSize: 10 })
+  override result = fetchResult(
+    this.params, 
+    (params: SearchParams) => {
+      return params.searchText && params.PageSize! > 0 
+        ? this.getData<SearchResult>(params)
+        : of<SearchResult>({})
+  })
 
-  override result = toSignal(
-    toObservable(this.params)
-      .pipe(
-        debounceTime(100),
-        switchMap(params => {
-          return params.searchText
-            ? this.getData<SearchResult>(params)
-            : of<SearchResult>({})
-        })
-      )
-  ) 
+  override getData<TResult>(params: SearchParams) {
+    this.setLoading(true)
+    return super.getData<TResult>(params).pipe(
+      map(results => {
+        this.setLoading(false)
+        return results
+      }))
+  }
 }

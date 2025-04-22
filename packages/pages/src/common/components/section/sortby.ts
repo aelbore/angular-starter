@@ -16,7 +16,7 @@ export const withSortBy = <T extends Constructor<SearchComponent>>(BaseComponent
       
       this.sortState.set({
         sortBy: value.sortBy,
-        sortOrder: value.sortOrder === prevActiveSort.sortOrder 
+        sortOrder: value.sortBy === prevActiveSort.sortBy 
           ? value.sortOrder === 'down' ? 'up': 'down'
           : prevActiveSort.sortOrder
       })
