@@ -1,0 +1,33 @@
+import { runInInjectionContext } from '@angular/core'
+import { toObservable, toSignal } from '@angular/core/rxjs-interop'
+
+import { debounceTime, distinctUntilChanged, finalize, startWith, switchMap } from 'rxjs/operators'
+import { identity } from 'rxjs'
+
+import { assertInjector } from '@lithium/pages/common/core'
+
+import type { HttpResultOptions, SectionParams } from '@lithium/pages/common/types'
+
+export const httpResult = <TParams extends SectionParams, TResult>(
+  options: HttpResultOptions<TParams, TResult>
+) => {
+  const fnCallback = options.data
+  const injector = assertInjector(fnCallback, null)
+  return runInInjectionContext(injector, () => {
+    const { params, initialValue, loading } = options
+    return toSignal(
+      toObservable(params!).pipe(
+        switchMap(params => {
+          loading?.start?.()
+          const value = initialValue?.()
+          return fnCallback?.(params).pipe(
+            value ? startWith(value): identity,
+            debounceTime(50),
+            distinctUntilChanged(),
+            finalize(() => loading?.done?.())
+          )
+        })
+      )
+    )
+  })
+}

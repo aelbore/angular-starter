@@ -25,7 +25,6 @@ export type SectionParams = {
 export interface GetDataBase {
   result: Signal<SectionResult | undefined>
   params: Signal<SectionParams>
-  loading: Signal<boolean>
   totalCount: Signal<number>
   getData<TResult>(params: SectionParams): Observable<TResult>
   updateParams(value: SectionParams): void
@@ -36,4 +35,16 @@ export interface PaginationBaseService {
   updatePaginateArgs(args: PaginationArgs): void
   updateCurrentPage(currentPage: number): void
   updatePageItems(itemsPerPage: number): void
+}
+
+export type WithLoaderOptions = {
+  start?: () => void
+  done?: () => void
+}
+
+export type HttpResultOptions<TParams, TResult> = {
+  params?: Signal<TParams>
+  data: (params: TParams) => Observable<TResult>
+  initialValue?: () => TResult | Signal<TResult>
+  loading?: WithLoaderOptions
 }
