@@ -1,7 +1,7 @@
-import type { Constructor, SearchParams, SearchService, SearchSortByService } from '@lithium/pages/common/types'
+import type { SearchParams, SearchService, SearchSortByService, WithService } from '@lithium/pages/common/types'
 
-export const withSortByService = <T extends Constructor<SearchService>>(
-  BaseService: T
+export const withSortByService = <TService>(
+  BaseService: WithService<TService, SearchService>
 ) => {
   return class SearchSortBy extends BaseService implements SearchSortByService {
     sortBy(params: SearchParams) {

@@ -6,9 +6,9 @@ import { identity } from 'rxjs'
 
 import { assertInjector } from '@lithium/pages/common/core'
 
-import type { HttpResultOptions, SectionParams } from '@lithium/pages/common/types'
+import type { HttpResultOptions } from '@lithium/pages/common/types'
 
-export const httpResult = <TParams extends SectionParams, TResult>(
+export const httpResult = <TParams, TResult>(
   options: HttpResultOptions<TParams, TResult>
 ) => {
   const fnCallback = options.data

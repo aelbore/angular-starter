@@ -96,8 +96,16 @@
       }
     }
 
-    .page-card {
+    .page-card,
+    .people-profile-card {
       --card-border-color: var(--border-card-color);
+    }
+
+    .people-profile-card::part(name) {
+      color: var(--primary-bright-blue);
+    }
+
+    .page-card {
 
       .content--title {
         --page-card-divider-color: var(--border-card-color);

@@ -4,9 +4,9 @@ import { of } from 'rxjs/internal/observable/of'
 
 import { withPaginationService, GetDataBaseService } from '@lithium/pages/common/services/base'
 import { httpResult, withLoader } from '@lithium/pages/common/services/core'
+import { computedPrevious } from '@lithium/pages/common/core'
 
 import type { SearchParams, SearchResult, SearchService } from '@lithium/pages/common/types'
-import { computedPrevious } from '@lithium/pages/common/core'
 
 export class SearchBaseService 
   extends withPaginationService(GetDataBaseService) 
@@ -21,10 +21,12 @@ export class SearchBaseService
         ? undefined: { result: [] } as SearchResult
     }),
     params: computed(() => this.params()),
-    data: (params: SearchParams) => {
-      return params.searchText && params.PageSize! > 0
-       ? this.getData<SearchResult>(params!)
-       : of({ totalCount: 0, results: []  })
-    }
+    data: (params: SearchParams) => this.search<SearchResult>(params)
   }))
+
+  protected search<TResult>(params: SearchParams) {
+    return params.searchText && params.PageSize! > 0
+      ? this.getData<TResult>(params!)
+      : of({ totalCount: 0, results: []  })
+  }
 }

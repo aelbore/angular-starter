@@ -2,14 +2,16 @@ import { computed, ElementRef, inject } from '@angular/core'
 import { toObservable } from '@angular/core/rxjs-interop'
 
 import { Subscription } from 'rxjs/internal/Subscription'
-import { Constructor } from '@lithium/pages/common/types'
+import { WithComponent } from '@lithium/pages/common/types'
 
 import { SearchComponent } from '../types'
 
 export * from './effect'
 export *  from './input'
 
-export const withBaseSection = <T extends Constructor<SearchComponent>>(BaseComponent: T) => {
+export const withBaseSection = <TComponent>(
+  BaseComponent: WithComponent<TComponent, SearchComponent>
+) => {
   return class BaseSection extends BaseComponent {
     readonly #elementRef = inject<ElementRef<HTMLElement>>(ElementRef)
     readonly #subscriptions: Subscription[] = []

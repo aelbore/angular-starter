@@ -35,7 +35,7 @@ import { PeopleSection } from './people-section'
           [tooltipPosition]="'left'"
           [tooltipClass]="'search-tooltip'"
           [tooltip]="tooltip(item)"
-          (onClick)="onRedirect()">
+          (onClick)="onRedirect($event)">
           <avatar base64 [src]="item.image!" [alt]="item.name! | imgAlt" />
         </profile-card>
       </ng-template>

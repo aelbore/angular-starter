@@ -4,6 +4,7 @@ import { withSortBy, withBaseSection, SearchSectionInput, withEffectSearchSectio
 import { SearchPagesService } from './pages.service'
 
 import type { SortButtons } from '@lithium/pages/common/types'
+import type { PageValue } from './types'
 
 export class PageSortBySection extends withSortBy(SearchSectionInput) {
   sortButtons = signal<SortButtons[]>([
@@ -15,5 +16,11 @@ export class PageSortBySection extends withSortBy(SearchSectionInput) {
 export class PagesSection extends withBaseSection(withEffectSearchSection(PageSortBySection)) {
   override service = inject(SearchPagesService)
   
-  onRedirect() { }
+  onRedirect(page: PageValue) { 
+    this.service.onRedirect(page)
+  }
+
+  hasBookmark(page: PageValue) {
+    return this.service.hasBookmark(page)
+  }
 }

@@ -1,8 +1,10 @@
 import { signal } from '@angular/core'
 
-import type { Constructor, GetDataBase, PaginationArgs, PaginationBaseService } from '@lithium/pages/common/types'
+import type { GetDataBase, PaginationArgs, PaginationBaseService, WithService } from '@lithium/pages/common/types'
 
-export const withPaginationService = <T extends Constructor<GetDataBase>>(BaseService: T) => {
+export const withPaginationService = <TService>(
+  BaseService: WithService<TService, GetDataBase>
+) => {
   class PaginationService 
     extends BaseService 
     implements PaginationBaseService 

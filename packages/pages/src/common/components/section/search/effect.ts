@@ -1,9 +1,11 @@
 import { effect } from '@angular/core'
-import { Constructor } from '@lithium/pages/common/types'
+import { WithComponent } from '@lithium/pages/common/types'
 
 import type { SearchInput } from '../types'
 
-export const withEffectSearchSection = <T extends Constructor<SearchInput>>(BaseComponent: T) => {
+export const withEffectSearchSection = <TComponent>(
+  BaseComponent: WithComponent<TComponent, SearchInput>
+) => {
   return class EffectSection extends BaseComponent {
     #effect = effect(() => {
       const text = this.searchText(), itemsPerPage = Number(this.itemsPerPage())

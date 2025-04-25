@@ -26,12 +26,12 @@
         background-color: #e4ccd6;
       }
 
-      .ig, .ma, .levfin, .ecm {
+      .ig, .m-a, .lev-fin, .ecm {
         color: #2d70cd;
         background-color: #ccebf8;
       }
 
-      .app-section, .quick-link {
+      .app-section, .quick-link, .my-deal, .my-work {
         color: #7c7c7c;
         background-color: #eaeaea;
       }
@@ -48,7 +48,8 @@
         margin-top: 3px;
       }
 
-      &--title {
+      &--title,
+      &--section-path {
         @include styles.ellipsis();
       }
 
@@ -58,6 +59,15 @@
         margin-top: 5px;
         margin-bottom: 11px;
         border-bottom: 1px solid var(--page-card-divider-color);
+      }
+
+      &--section-container {
+        display: grid;
+        row-gap: 5px;
+      }
+
+      &--section-path {
+        font-size: 14px;
       }
 
       &--description {

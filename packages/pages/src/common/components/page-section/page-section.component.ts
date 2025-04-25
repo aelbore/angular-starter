@@ -3,23 +3,22 @@ import {
   Component, 
   computed,  
   contentChild, 
-  CUSTOM_ELEMENTS_SCHEMA,  
-  inject, 
-  Injector,
+  CUSTOM_ELEMENTS_SCHEMA,
   TemplateRef 
 } from '@angular/core'
 import { NgTemplateOutlet } from '@angular/common'
 
-import { NgxPaginationModule } from 'ngx-pagination'
-import { PaginationComponent } from '@lithium/components/pagination'
+
+import { PaginationModule } from '@lithium/components/pagination'
 import { getSectionService } from '@lithium/pages/common/core'
-import { SearchService } from '../../types'
+
+import type { SearchService } from '@lithium/pages/common/types'
 
 @Component({
   selector: 'page-section',
   standalone: true,
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  imports: [ PaginationComponent, NgxPaginationModule, NgTemplateOutlet ],
+  imports: [ PaginationModule, NgTemplateOutlet ],
   template: `
     <li-card class="page-section">
       <li-header>
@@ -46,8 +45,8 @@ import { SearchService } from '../../types'
   styleUrl: './page-section.component.scss'
 })
 export class PageSectionComponent {
-  protected readonly outlet = contentChild(TemplateRef)
-  protected readonly section = getSectionService<SearchService>()
+  outlet = contentChild(TemplateRef)
+  section = getSectionService<SearchService>()
 
   paginateArgs = computed(() => this.section.paginateArgs())
   results = computed(() => this.section.result()?.results ?? [])

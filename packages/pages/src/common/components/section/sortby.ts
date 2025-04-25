@@ -1,8 +1,10 @@
 import { signal, untracked } from '@angular/core'
 
-import type { Constructor, SearchComponent, SearchSortByService, SortOrder, SortParams } from '@lithium/pages/common/types'
+import type { SearchComponent, SearchSortByService, SortOrder, SortParams, WithComponent } from '@lithium/pages/common/types'
 
-export const withSortBy = <T extends Constructor<SearchComponent>>(BaseComponent: T) => {
+export const withSortBy = <TComponent>(
+  BaseComponent: WithComponent<TComponent, SearchComponent>
+) => {
   return class SortByComponent extends BaseComponent  {
     override service!: SearchSortByService
 

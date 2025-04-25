@@ -21,7 +21,9 @@ export class PeopleSection
 {
   override service = inject(SearchPeopleService)
   
-  onRedirect() { }
+  onRedirect(person: ProfileCardValue) { 
+    this.service.onRedirect(person)
+  }
 
   tooltip(person: ProfileCardValue) {
     return `${person.name}\n${person.title}\n${person.role ?? ''}`
