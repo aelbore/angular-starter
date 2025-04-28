@@ -25,6 +25,13 @@ export const getSectionToken = <T>(name: SectionName) => {
   return sectionTokens.get(name) as InjectionToken<T>
 }
 
+export const getSectionServiceByName = <T>(name: string, injector?: Injector) => {
+  const injector$ = assertInjector(getSectionServiceByName, injector!)
+  return runInInjectionContext(injector$ , () => {
+    return injector$.get(getSectionToken<T>(name as SectionName)) as T
+  })
+}
+
 export const getSectionService = <T>(injector?: Injector) => {
   const injector$ = assertInjector(getSectionService, injector!)
   return runInInjectionContext(injector$ , () => {

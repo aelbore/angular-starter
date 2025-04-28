@@ -15,11 +15,11 @@ export const httpResult = <TParams, TResult>(
   const injector = assertInjector(fnCallback, null)
   return runInInjectionContext(injector, () => {
     const { params, initialValue, loading } = options
+    const value = initialValue?.() as TResult
     return toSignal(
       toObservable(params!).pipe(
         switchMap(params => {
           loading?.start?.()
-          const value = initialValue?.()
           return fnCallback?.(params).pipe(
             value ? startWith(value): identity,
             debounceTime(50),
@@ -27,7 +27,6 @@ export const httpResult = <TParams, TResult>(
             finalize(() => loading?.done?.())
           )
         })
-      )
-    )
+      ), { initialValue: value })
   })
 }

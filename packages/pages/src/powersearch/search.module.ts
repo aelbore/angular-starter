@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core'
 
-import { SearchPeopleComponent } from './people/people.component'
+import { Loader } from '@lithium/pages/common'
+
+import { SearchPeopleComponent } from './people'
 import { SearchPagesComponent } from './pages'
+import { SearchTotalCount } from './total-count'
 
-export const modules = [ SearchPeopleComponent, SearchPagesComponent ]
-
-@NgModule({ imports: modules, exports: modules })
+@NgModule({ 
+  imports: [ SearchPeopleComponent, SearchPagesComponent ], 
+  exports: [ SearchPeopleComponent, SearchPagesComponent ],
+  providers: [ Loader, SearchTotalCount ]
+})
 export class SearchModule { }

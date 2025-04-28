@@ -1,6 +1,7 @@
 import { computed } from '@angular/core'
 
 import { of } from 'rxjs/internal/observable/of'
+import { toObservable } from '@angular/core/rxjs-interop'
 
 import { withPaginationService, GetDataBaseService } from '@lithium/pages/common/services/base'
 import { httpResult, withLoader } from '@lithium/pages/common/services/core'
@@ -14,11 +15,13 @@ export class SearchBaseService
 {  
   #prev = computedPrevious<SearchParams>(this.params)
 
+  totalCount$ = toObservable(this.totalCount)
+
   override result = httpResult(withLoader({
     initialValue: computed(() => {
       const current = this.params() as SearchParams
       return this.#prev().searchText === current.searchText
-        ? undefined: { result: [] } as SearchResult
+        ? undefined: { totalCount: 0, result: [] } as SearchResult
     }),
     params: computed(() => this.params()),
     data: (params: SearchParams) => this.search<SearchResult>(params)

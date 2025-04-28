@@ -1,6 +1,7 @@
-import type { Signal } from '@angular/core'
+import { Observable } from 'rxjs/internal/Observable'
 
-import { GetDataBase, PaginationBaseService, SectionParams, SectionResult } from '../base/types'
+import type { Signal } from '@angular/core'
+import type { GetDataBase, PaginationBaseService, SectionParams, SectionResult } from '../base/types'
 
 export type SortByParams = {
   SortBy?: string
@@ -16,6 +17,7 @@ export interface SectionBaseService { }
 export interface SearchSectionBaseService extends GetDataBase, PaginationBaseService {
   params: Signal<SearchParams>
   result: Signal<SearchResult | undefined>
+  totalCount$: Observable<number>
 }
 
 export interface SearchService extends SearchSectionBaseService {
