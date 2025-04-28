@@ -1,3 +1,5 @@
 export type SectionName = 'search-people'
   | 'search-pages'
   | 'search-deals'
+  | 'search-media'
+  | 'search-documents'

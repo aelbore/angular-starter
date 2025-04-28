@@ -8,7 +8,7 @@ import {
 import { SearchPeopleComponent } from './people/people'
 import { handlers } from './people/people-mock'
 
-import type { SearchParams } from '@lithium/pages/powersearch/common/types'
+import type { SearchParams } from '@lithium/pages/common/types'
 
 export default {
   title: 'Pages/Powersearch/People',

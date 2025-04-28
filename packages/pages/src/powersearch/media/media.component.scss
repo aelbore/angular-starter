@@ -1,0 +1,10 @@
+:host {
+  page-section {
+    --card-width: var(--media-section-width);
+
+    &::ng-deep li-content section {
+      display: flex !important;
+      column-gap: 20px;
+    }
+  }
+}

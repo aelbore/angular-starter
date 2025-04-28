@@ -36,6 +36,10 @@
       }
     }
 
+    .media-image-card {
+      --card-border-color: #2e2e31;
+    }
+
     .page-card {
       --card-border-color: #2e2e31;
 
@@ -97,7 +101,8 @@
     }
 
     .page-card,
-    .people-profile-card {
+    .people-profile-card,
+    .media-image-card {
       --card-border-color: var(--border-card-color);
     }
 

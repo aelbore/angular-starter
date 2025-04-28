@@ -2,7 +2,7 @@
 
 :host {
   page-section {
-    --card-width: var(--search-people-width);
+    --card-width: var(--search-people-width, 100%);
 
     profile-card {
       --profile-card-width: auto;

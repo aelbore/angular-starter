@@ -20,7 +20,7 @@ import { PagesSection } from './pages-section'
     NgTemplateOutlet,
     SortButtonsModule,
     PageSectionComponent
-],
+  ],
   template: ` 
     <page-section name="search-pages">
       <header>

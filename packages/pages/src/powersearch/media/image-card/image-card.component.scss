@@ -1,0 +1,21 @@
+:host {
+  li-card {
+    --card-radius: 0;
+    --card-grid-rows: auto;
+    --card-min-height: auto;
+    --card-height: auto;
+    --card-border: 0;
+    --card-width: 297px;
+    --card-bg-color: transparent;
+    --checkbox-margin: 3px 0px 3px 1px;
+    --card-box-shadow: none;
+    --card-border: 1px solid;
+
+    img {
+      object-fit: cover;
+      object-position: center;
+      width: 100%;
+      height: 150px;
+    }
+  }
+}

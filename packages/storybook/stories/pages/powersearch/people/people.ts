@@ -20,7 +20,7 @@ import type { SearchParams } from '@lithium/pages/common/types'
   `,
   styles: `
     :host {
-      --search-people-width: 100%;
+      --search-people-width: 400px;
     } 
   `
 })
