@@ -13,6 +13,6 @@
     }
   },
   "dependencies": {
-    "toolsetx": "^0.6.3"
+    "toolsetx": "^0.10.0"
   }
 }

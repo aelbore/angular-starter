@@ -1,21 +1,21 @@
-import { defineConfig, mergeConfig, type PluginOption } from 'vite'
-import { swcPlugin } from 'qoi-cli'
+import { defineConfig, mergeConfig } from 'vite'
 
 import { ViteInlineElementPlugin as VitePlugin } from '../tools/src/ts-plugin'
 
-import { Angular, createFilter, Watcher } from './tools'
+import { Angular, createFilter, SwcPlugin, Watcher } from './tools'
 import { getParentDir, viteResolvePaths, defaultConfig } from 'toolsetx'
 
 export default mergeConfig(
   defaultConfig, 
   defineConfig({
-    logLevel: 'silent',
     optimizeDeps: {
       include: [
-        '@storybook/angular',
+        '@storybook/angular/dist/client/index.js',
         '@angular/compiler',
-        '@storybook/blocks',
-        'tslib' 
+        '@angular/platform-browser',
+        '@angular/platform-browser/animations',
+        'tslib',
+        'zone.js'
       ]
     },
     resolve: {
@@ -36,7 +36,7 @@ export default mergeConfig(
           importPackage: '@lithium/elements/core'
         }
       }),
-      swcPlugin() as PluginOption
+      SwcPlugin()
     ],
     define: {
       STORYBOOK_ANGULAR_OPTIONS: JSON.stringify({ experimentalZoneless: false }) 
