@@ -1,11 +1,15 @@
 
 import { join } from 'node:path'
+import { swcPlugin, type CreateFilter } from 'qoi-cli'
+import { PluginOption } from 'vite'
+
 import angular from '@analogjs/vite-plugin-angular'
 
-export const Angular = (filter?: import('qoi-cli').CreateFilter) => {
+export const Angular = (filter?: CreateFilter) => {
   return [
     angular({ 
       jit: true, 
+      liveReload: true,
       tsconfig: join(process.cwd(), 'tsconfig.json'),
       inlineStylesExtension: 'scss',
       transformFilter(_, id) {
@@ -27,4 +31,8 @@ export const Watcher = () => {
       })
     }
   } as import('vite').Plugin
+}
+
+export const SwcPlugin = () => {
+  return swcPlugin() as PluginOption
 }

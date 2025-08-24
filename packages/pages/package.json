@@ -1,0 +1,17 @@
+{
+  "name": "@lithium/pages",
+  "version": "0.0.0",
+  "description": "Mono Repository with Custom Elements",
+  "main": "index.js",
+  "type": "module",
+  "types": "./types.d.ts",
+  "scripts": {
+    "test": "npx vitest",
+    "lint": "eslint",
+    "storybook": "npm run storybook -w packages/storybook",
+    "stylelint": "stylelint **/*.{css,scss,sass}"
+  },
+  "keywords": [],
+  "author": "Arjay Elbore <aelbore.sg@gmail.com>",
+  "license": "MIT"
+}

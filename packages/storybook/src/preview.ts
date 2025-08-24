@@ -1,4 +1,5 @@
 import '@lithium/theme'
+import 'zone.js'
 
 import type { Preview } from '@storybook/angular'
 

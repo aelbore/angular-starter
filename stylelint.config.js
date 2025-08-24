@@ -1,2 +1,2 @@
-import stylelint from '@lithium/tools/stylelint.config.js'
+import stylelint from 'toolsetx/stylelint.config.js'
 export default stylelint

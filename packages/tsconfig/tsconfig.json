@@ -29,5 +29,10 @@
       "vitest/globals", 
       "node"
     ]
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true,
+    "preserveWhitespaces": true,
+    "disableTypeScriptVersionCheck": true
   }
 }
