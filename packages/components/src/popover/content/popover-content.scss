@@ -1,0 +1,78 @@
+:host {
+  --_padding: 10px;
+
+  .card {
+    --card-min-height: auto;
+    --card-height: auto;
+
+    svg {
+      fill: var(--text-color);
+    }
+
+    h3, p {
+      color: var(--text-color);
+    }
+
+    h3, svg, p {
+      padding: 0;
+      margin: 0;
+    }
+
+    li-header {
+      --header-padding: var(--_padding);
+      --header-border-style: none;
+
+      &::part(header) {
+        grid-template-columns: 1fr auto;
+        height: auto;
+        padding-bottom: 0;
+      }
+
+      h3 {
+        font-size: 17px;
+      }
+
+      .x-button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+      }
+    }
+
+    li-content {
+      --content-padding: var(--_padding);
+
+      &::part(content) {
+        padding-bottom: 25px;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+
+    li-footer {
+      --footer-border-style: none;
+      --footer-height: auto;
+      
+      &::part(footer) {
+        padding: var(--_padding);
+        padding-top: 0;
+      }
+
+      li-button {
+        --button-width: auto;
+        --button-border-radius: 20px;
+        --button-border: 1px solid #dee2e6;
+        --button-cursor: pointer;
+        --button-font-size: 14px;
+        --button-height: auto;
+
+        &::part(button) {
+          padding: 6px 12px;
+          transition: all 0.2s ease;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,103 @@
+:host {
+  .popover-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e1e5e9;
+    min-width: 280px;
+    max-width: 320px;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+
+    &.active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+  }
+
+  .popover-arrow,
+  .popover-arrow::before {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  .popover-arrow {
+    border: 8px solid transparent;
+
+    &::before {
+      content: '';
+      z-index: 1;
+    }
+
+    &.arrow-bottom::before, &.arrow-top::before, &.arrow-left::before, &.arrow-right::before {
+      z-index: 0;
+    }
+
+    &.arrow-bottom::before, &.arrow-top::before, &.arrow-left::before {
+      border-left: 9px solid transparent;
+    }
+
+    &.arrow-bottom::before, &.arrow-top::before, &.arrow-right::before {
+      border-right: 9px solid transparent;
+    }
+
+    &.arrow-top::before, &.arrow-left::before, &.arrow-right::before {
+      border-top: 9px solid transparent;
+    }
+
+    &.arrow-bottom::before, &.arrow-left::before, &.arrow-right::before {
+      border-bottom: 9px solid transparent;
+    }
+
+    &.arrow-bottom::before, &.arrow-top::before {
+      left: -9px;
+    }
+
+    &.arrow-left::before, &.arrow-right::before {
+      top: -9px;
+    }
+
+    --_top-bottom-right-left: -17px;
+    --_top-bottom-right-left-before: 2px;
+
+    &.arrow-bottom {
+      top: var(--_top-bottom-right-left);
+
+      &::before {
+        top: var(--_top-bottom-right-left-before);
+      }
+    }
+
+    &.arrow-top {
+      bottom: var(--_top-bottom-right-left);
+
+      &::before {
+        bottom: var(--_top-bottom-right-left-before);
+      }
+    }
+
+    &.arrow-left {
+      right: var(--_top-bottom-right-left);
+
+      &::before {
+        right: var(--_top-bottom-right-left-before);
+      }
+    }
+
+    &.arrow-right {
+      left: var(--_top-bottom-right-left);
+
+      &::before {
+        left: var(--_top-bottom-right-left-before);
+      }
+    }
+  }
+
+  .popover-content {
+    padding: 0;
+  }
+}

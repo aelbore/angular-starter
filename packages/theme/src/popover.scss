@@ -1,0 +1,64 @@
+[theme] {
+  popover:has(.popover-container) {
+    --popover-border-color: rgba(255, 255, 255, 0.1);
+    --popover-border: 9px solid transparent;
+
+    .popover-container {
+      background: var(--popover-bg-color) !important;
+      border: 1px solid var(--popover-border-color) !important;
+    }
+
+    .popover-arrow {
+      &.arrow-bottom {
+        border-bottom-color: var(--popover-border-color);
+
+        &::before {
+          border-bottom-color: var(--popover-bg-color);
+        }
+      }
+
+      &.arrow-right {
+        border-right-color: var(--popover-border-color);
+
+        &::before {
+          border-right-color: var(--popover-bg-color);
+        }
+      }
+
+      &.arrow-top {
+        border-top-color: var(--popover-border-color);
+
+        &::before {
+          border-top-color: var(--popover-bg-color);
+        }
+      }
+
+      &.arrow-left {
+        border-left-color: var(--popover-border-color);
+
+        &::before {
+          border-left-color: var(--popover-bg-color);
+        }
+      }
+    }
+
+    .card {
+      --card-bg-color: var(--popover-bg-color);
+      --text-color: var(--popover-text-color);
+    }      
+  }
+}
+
+[theme=dark] {
+  popover:has(.popover-container) {
+    --popover-bg-color: #2d2d2d;
+    --popover-text-color: var(--primary-white);
+  }
+}
+
+[theme=light] {
+  popover:has(.popover-container) {
+    --popover-bg-color: var(--primary-white);   
+    --popover-text-color: #000;
+  }
+}
